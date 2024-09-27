@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card, CardContent, CardActions, IconButton, Menu, MenuItem, Box, Typography, Grid, Grid2 } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
 
 import styles from './createAssessment.module.scss'
 import Button from '../../components/button/button';
+import { useGetAssessments } from '../../api/assessment/assesment';
+import { capitalize } from 'lodash';
 
 const assessments = [
   { id: 1, name: 'Assessment 1', subject: 'Math', createdDate: '2023-10-01' },
@@ -16,6 +19,17 @@ const Assessments: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [selectedAssessment, setSelectedAssessment] = React.useState<null | number>(null);
   const navigate = useNavigate();
+  const { getAssessments, getAssessmentsResponse = {assessments: []} } = useGetAssessments();
+
+  console.log(getAssessmentsResponse)
+
+  useEffect(() => {
+    getAssessments({
+      onCompleted: (data) => {
+        console.log(data);
+      }
+    });
+  }, [])
 
   const handleClick = (event: React.MouseEvent<HTMLElement>, id: number) => {
     setAnchorEl(event.currentTarget);
@@ -45,13 +59,15 @@ const Assessments: React.FC = () => {
         <Button label="Create Assessment" onClick={handleCreateAssessment}></Button>
       </Box>
       <Grid2 container spacing={2}>
-        {assessments.map((assessment) => (
+        {getAssessmentsResponse?.assessments?.map((assessment: any) => (
           <Grid2 key={assessment.id}>
             <Card sx={{ width: 300 }}> {/* Adjust the width value as needed */}
               <CardContent>
                 <Typography variant="h6">{assessment.name}</Typography>
-                <Typography color="textSecondary">Subject: {assessment.subject}</Typography>
-                <Typography color="textSecondary">Created Date: {assessment.createdDate}</Typography>
+                <Typography color="textSecondary">Subject: {assessment.subject.name}</Typography>
+                <Typography color="textSecondary">{assessment.grade.name}</Typography>
+                <Typography color="textSecondary">Level: {capitalize(assessment.level)}</Typography>
+                <Typography color="textSecondary">Created Date: {moment(assessment.createdAt).format('DD-MM-YYYY')}</Typography>
               </CardContent>
               <CardActions sx={{ justifyContent: 'flex-end' }}>
                 <IconButton onClick={(event) => handleClick(event, assessment.id)}>
