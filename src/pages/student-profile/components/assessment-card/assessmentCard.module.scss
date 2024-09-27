@@ -1,0 +1,17 @@
+@import '../../../../variables.scss';
+
+.assessmentCardContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    .name {
+        font-weight: 500;
+    }
+
+    .score,
+    .date {
+        color: $border;
+        font-size: 12px;
+    }
+}
