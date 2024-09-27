@@ -21,7 +21,7 @@ const Chat: React.FC = () => {
   };
 
   return (
-    <Box padding={4}>
+    <Box>
       <div style={{ border: '1px solid #ccc', padding: '10px', height: 'calc(100vh - 100px)', overflowY: 'scroll' }}>
         {messages.map((message, index) => (
           <div

@@ -7,7 +7,15 @@
 }
 
 .mainLayout{
-  margin-left: 270px;
+  // background: #f5f9f8;
+  background-color: #D3EEE3;
+  // border-radius: 40px;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+  height: calc(100vh - 24px);
+  overflow-y: auto;
+  margin: 24px 24px 0px 270px;
+  padding: 32px;
 
   @media only screen and (max-width: 1600px) {
     margin-left: 240px;

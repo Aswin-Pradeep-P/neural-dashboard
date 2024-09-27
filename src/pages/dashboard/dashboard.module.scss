@@ -1,11 +1,6 @@
 .dashboardContainer {
   display: flex;
   gap: 32px;
-  padding: 32px;
-  background: #f5f9f8;
-  border-top-left-radius: 40px;
-  min-height: calc(100vh - 24px);
-  margin-top: 24px;
   flex-wrap: wrap;
 
   .dashboardContent {
@@ -22,7 +17,7 @@
     width: calc(100% - 390px);
 
     @media only screen and (max-width: 1600px) {
-      width: calc(100% - 240px);
+      width: calc(100% - 300px);
     }
   }
 }

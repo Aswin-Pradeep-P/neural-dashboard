@@ -10,7 +10,7 @@ import { Person } from '@mui/icons-material';
 import styles from './navbar.module.scss';
 
 const navItems =  [
-    { name: 'Dashboard', icon: <DashboardIcon />, path: '/', paths : ['/', '/dashboard'] },
+    { name: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard', paths : ['/', '/dashboard'] },
     { name: 'Students', icon: <Person />, path: '/students', paths: ['/students'] },
     { name: 'Library', icon: <LibraryBooksIcon />, path: '/library', paths: ['/library'] },
     { name: 'Assessments', icon: <AssessmentIcon />, path: '/assessments', paths: ['/assessments', '/assessments/create'] },
