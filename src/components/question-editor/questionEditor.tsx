@@ -90,10 +90,10 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({ editableQuestions, setE
                 {(question.type === 'MCQ' ||
                   question.type === 'True-False' ||
                   question.type === 'Assertion-Reason') && (
-                  <ul>
+                  <ol>
                     <div style={{ marginBottom: '5px' }}>
                       <strong>
-                        A{qIndex + 1}.{qIndex + 1}:
+                        Answer
                       </strong>
                     </div>
                     {question.options?.map((option, oIndex) => (
@@ -108,7 +108,7 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({ editableQuestions, setE
                         />
                       </li>
                     ))}
-                  </ul>
+                  </ol>
                 )}
                 {(question.type === 'Short-Answer' || question.type === 'Essay' || question.type === 'Case-Study') && (
                   <div>
