@@ -55,11 +55,11 @@ const QuestionsViewer: React.FC<QuestionsViewerProps> = ({ questions, onAddToAss
             <div key={index} style={{ marginBottom: '20px' }}>
               <p>{question.text}</p>
               {(question.type === 'MCQ' || question.type === 'True-False' || question.type === 'Assertion-Reason') && (
-                <ul>
+                <ol>
                   {question.options?.map((option, idx) => (
                     <li key={idx}>{option}</li>
                   ))}
-                </ul>
+                </ol>
               )}
               <Button variant="contained" label="Add" onClick={() => onAddToAssessment(question)}>
                 Add
