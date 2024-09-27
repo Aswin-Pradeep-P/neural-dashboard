@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Button from '../button/button';
 import FormInput from '../form-input/formInput';
 
 import styles from './questionEditor.module.scss';
+import { useCreateAssessment, useGetAnswer } from '../../api/assessment/assesment';
+import CircularLoader from '../circular-loader/circularLoader';
+import { useRecoilValue } from 'recoil';
 
 interface Question {
   text: string;
   options?: string[];
   weightage: number;
   type: 'MCQ' | 'True-False' | 'Short-Answer' | 'Essay' | 'Assertion-Reason' | 'Case-Study';
-  expectedAnswer?: string;
+  answer?: string;
 }
 
 interface QuestionEditorProps {
@@ -18,7 +21,10 @@ interface QuestionEditorProps {
   setEditableQuestions: React.Dispatch<React.SetStateAction<Question[]>>;
 }
 
-const QuestionEditor: React.FC<QuestionEditorProps> = ({ editableQuestions, questions, setEditableQuestions }) => {
+const QuestionEditor: React.FC<QuestionEditorProps> = ({ editableQuestions, setEditableQuestions }) => {
+  const { getAnswer, gettingAnswer } = useGetAnswer();
+  const {createAssessment, creatingAssessment} = useCreateAssessment();
+  const classId = useRecoilValue(selectedClass)
   const handleTextChange = (index: number, newText: string) => {
     const updatedQuestions = [...editableQuestions];
     updatedQuestions[index].text = newText;
@@ -35,8 +41,20 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({ editableQuestions, ques
 
   const handleExpectedAnswerChange = (index: number, newAnswer: string) => {
     const updatedQuestions = [...editableQuestions];
-    updatedQuestions[index].expectedAnswer = newAnswer;
+    updatedQuestions[index].answer = newAnswer;
     setEditableQuestions(updatedQuestions);
+  };
+
+  const handleGenerateAnswer = async(index: number) => {
+    getAnswer({data: {
+      question: editableQuestions[index].text,
+      type: editableQuestions[index].type,
+      weightage: editableQuestions[index].weightage
+    },
+    onCompleted: (data) => {
+      handleExpectedAnswerChange(index, data);
+    }
+  });
   };
 
   return (
@@ -44,6 +62,7 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({ editableQuestions, ques
       {editableQuestions.length > 0 ? (
         <>
           <div className={styles.questions}>
+            {gettingAnswer && <CircularLoader />}
             {editableQuestions.map((question, qIndex) => (
               <div key={qIndex} style={{ marginBottom: '20px' }}>
                 <div style={{ marginBottom: '10px' }}>
@@ -78,14 +97,24 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({ editableQuestions, ques
                   </ul>
                 )}
                 {(question.type === 'Short-Answer' || question.type === 'Essay' || question.type === 'Case-Study') && (
-                  <FormInput
-                    value={question.expectedAnswer || ''}
-                    onChange={(e) => handleExpectedAnswerChange(qIndex, e.target.value)}
-                    className={styles.formInput}
-                    multiline={true}
-                    rows={4}
-                    placeholder="Expected Answer"
-                  />
+                  <div>
+                    <FormInput
+                      value={question.answer || ''}
+                      onChange={(e) => handleExpectedAnswerChange(qIndex, e.target.value)}
+                      className={styles.formInput}
+                      multiline={true}
+                      rows={4}
+                      placeholder="Expected Answer"
+                    />
+                    <Button
+                      label="Generate Answer"
+                      onClick={() => handleGenerateAnswer(qIndex)}
+                      variant='contained'
+                      style={{ marginTop: '10px' }}
+                    >
+                      Generate Answer
+                    </Button>
+                  </div>
                 )}
               </div>
             ))}
@@ -93,7 +122,11 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({ editableQuestions, ques
           <Button
             label="Save"
             onClick={() => {
-              console.log(() => editableQuestions);
+              createAssessment({data: {
+                classId: '',
+                subjectId: 'a7ba5181-3d8d-402c-9197-6bc6b7e5721c',
+                questions: editableQuestions
+              }});
             }}
             variant='contained'
           >

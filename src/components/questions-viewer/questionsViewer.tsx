@@ -14,9 +14,10 @@ interface Question {
 interface QuestionsViewerProps {
   questions: Question[];
   onAddToAssessment: (question: Question) => void;
+  onGenerateAssessment: (topic: string) => void;
 }
 
-const QuestionsViewer: React.FC<QuestionsViewerProps> = ({ questions, onAddToAssessment }) => {
+const QuestionsViewer: React.FC<QuestionsViewerProps> = ({ questions, onAddToAssessment, onGenerateAssessment }) => {
   const [chatInput, setChatInput] = useState('');
 
   const handleChatInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,9 +25,10 @@ const QuestionsViewer: React.FC<QuestionsViewerProps> = ({ questions, onAddToAss
   };
 
   const handleChatSubmit = () => {
-    console.log('Chat submitted:', chatInput);
-    setChatInput('');
+   onGenerateAssessment(chatInput);
   };
+
+  console.log(questions)
 
   return (
     <div>
