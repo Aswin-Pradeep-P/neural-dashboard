@@ -6,6 +6,9 @@ import Questionnaire from '../components/question-generation/questionGeneration'
 import { mockQuestions } from '../data';
 
 import './styles.scss';
+import QuestionsViewer from '../components/questions-viewer/questionsViewer';
+import QuestionEditor from '../components/question-editor/questionEditor';
+import CreateAssessment from '../pages/assetments/createAssessment';
 
 
 function MainLayout() {
@@ -15,7 +18,7 @@ function MainLayout() {
       <div className="mainLayout">
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/assesments" element={<Questionnaire questions={mockQuestions} />} />
+          <Route path="/assesments/create" element={<CreateAssessment />} />
         </Routes>
       </div>
     </div>
