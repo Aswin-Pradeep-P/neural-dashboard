@@ -7,6 +7,7 @@ import CreateAssessment from '../pages/assessments/createAssessment';
 import Assessments from '../pages/assessments/assessments';
 import Library from '../pages/library/library';
 import Chat from '../pages/chat/chat';
+import Planner from '../pages/planner/planner';
 
 import './styles.scss';
 
@@ -21,6 +22,7 @@ function MainLayout() {
           <Route path="/assessments" element={<Assessments />} />
           <Route path="/assessments/create" element={<CreateAssessment />} />
           <Route path="/library" element={<Library />} />
+          <Route path="/planner" element={<Planner />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/students" element={<Students />} />
         </Routes>
