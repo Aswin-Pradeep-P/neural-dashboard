@@ -77,3 +77,14 @@ export const useGetReport = () => {
 
   return { getReport, gettingReport, getReportError, getReportResponse };
 };
+
+export const useGetComment = () => {
+  const {
+    loading: gettingComment,
+    callApi: getComment,
+    error: getCommentError,
+    response: getCommentResponse,
+  } = useApi({ method: HttpMethod.POST, url: `${mlUrl}/api/reports/comment-enhance`, withAuth : false });
+
+  return { getComment, gettingComment, getCommentError, getCommentResponse };
+};
