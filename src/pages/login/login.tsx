@@ -9,11 +9,21 @@ import SignupImg from '../../assets/signup-img.jpg';
 import GoogleImg from '../../assets/google_sign_in.svg';
 
 import styles from './login.module.scss';
+import { useGetProfile, useLogin } from '../../api/login/auth';
+import { useRecoilState } from 'recoil';
+import { profileAtom } from '../../atoms/profile';
 
 const Login = ({type}: {type: string}) => {
     const navigate = useNavigate();
-    const [formData, setFormData] = useState({});
+    const [formData, setFormData] = useState({
+      Username: '',
+      Email: '',
+      Password: ''
+    });
     const btnText = type === 'login' ? 'Login': 'Signup';
+    const {login} = useLogin();
+    const { getProfile } = useGetProfile();
+    const [, setProfile] = useRecoilState(profileAtom);
     
     const handleChange = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>, key: string) => {
       setFormData({
@@ -23,7 +33,21 @@ const Login = ({type}: {type: string}) => {
     }
 
     const handleLogin = () => {
-      console.log(formData);
+      login({
+        data: {
+          "email": formData.Username,
+          "password": formData.Password
+      },
+      onCompleted(data) {
+        localStorage.setItem('token', data.token);
+        getProfile({
+          onCompleted: (res) => {
+            setProfile(res.data);
+            navigate('/dashboard');
+          }
+        });
+      }
+      });
     }
 
     const handlePageSwitch = () => {
