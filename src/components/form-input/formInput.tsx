@@ -12,6 +12,13 @@ const FormInput: FC<TextFieldProps> = (props) => {
           padding: '12.5px 14px !important',
         },
       }}
+      InputLabelProps={{
+        style: {
+          color: '#33314C', // Example style for the label
+          fontSize: '16px',
+          marginTop: '-2px',
+        },
+      }}
       style={{
         width: '100%',
       }}
