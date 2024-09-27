@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { cloneDeep } from 'lodash'
 import QuestionEditor from '../../components/question-editor/questionEditor';
 import QuestionsViewer from '../../components/questions-viewer/questionsViewer';
-import { mockQuestions } from '../../data';
 import styles from './createAssessment.module.scss';
 import { Grid2, Paper } from '@mui/material';
 

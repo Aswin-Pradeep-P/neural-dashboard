@@ -10,18 +10,19 @@ import { Person } from '@mui/icons-material';
 import styles from './navbar.module.scss';
 
 const navItems =  [
-    { name: 'Dashboard', icon: <DashboardIcon />, path: '/' },
-    { name: 'Students', icon: <Person />, path: '/students' },
-    { name: 'Subject Library', icon: <LibraryBooksIcon />, path: '/library' },
-    { name: 'Assessments', icon: <AssessmentIcon />, path: '/assessments' },
-    { name: 'Chat', icon: <ChatIcon />, path: '/chat' } ]
+    { name: 'Dashboard', icon: <DashboardIcon />, path: '/', paths : ['/', '/dashboard'] },
+    { name: 'Students', icon: <Person />, path: '/students', paths: ['/students'] },
+    { name: 'Library', icon: <LibraryBooksIcon />, path: '/library', paths: ['/library'] },
+    { name: 'Assessments', icon: <AssessmentIcon />, path: '/assessments', paths: ['/assessments', '/assessments/create'] },
+    { name: 'Planner', icon: <ChatIcon />, path: '/planner', paths: ['/planner'] },
+    { name: 'Chat', icon: <ChatIcon />, path: '/chat', paths: ['/chat'] } ]
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const isCurrentUrl = (path: string) => {
-    return location.pathname === path
+  const isCurrentUrl = (paths: string[]) => {
+    return paths.includes(location.pathname)
   }
 
   return (
@@ -32,7 +33,7 @@ const Navbar: React.FC = () => {
       <List>
         {
           navItems.map((item) => (
-            <ListItem key={item.name} className={isCurrentUrl(item.path) ? styles.currentUrl : ''}>
+            <ListItem key={item.name} className={isCurrentUrl(item.paths) ? styles.currentUrl : ''}>
               <ListItemIcon>
                 {item.icon}
               </ListItemIcon>
