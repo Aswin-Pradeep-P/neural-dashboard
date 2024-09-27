@@ -44,3 +44,25 @@ export const useGetAssessments = () => {
 
   return { getAssessments, gettingAssessments, getAssessmentsError, getAssessmentsResponse };
 };
+
+export const useGetAssessmentsById = (studentId: string) => {
+  const {
+    loading: gettingAssessments,
+    callApi: getAssessmentsById,
+    error: getAssessmentsByIdError,
+    response: getAssessmentsByIdResponse,
+  } = useApi({ method: HttpMethod.POST, url: `${apiUrl}/student-assessment/list/${studentId}` });
+
+  return { getAssessmentsById, gettingAssessments, getAssessmentsByIdError, getAssessmentsByIdResponse };
+};
+
+export const useGetReport = () => {
+  const {
+    loading: gettingReport,
+    callApi: getReport,
+    error: getReportError,
+    response: getReportResponse,
+  } = useApi({ method: HttpMethod.POST, url: `${mlUrl}/api/reports/generate`, withAuth : false });
+
+  return { getReport, gettingReport, getReportError, getReportResponse };
+};

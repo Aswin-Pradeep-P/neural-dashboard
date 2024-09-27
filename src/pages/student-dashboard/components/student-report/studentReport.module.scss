@@ -1,0 +1,33 @@
+.assessmentList {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin-bottom: 0px;
+}
+
+.report {
+    padding: 16px;
+}
+
+.assesmentHeader {
+    margin-bottom: 0px;
+}
+
+.skillList {
+    display: flex;
+    padding: 12px;
+    width: 100%;
+    gap: 30px;
+
+}
+
+.skillHeader {
+    width: 100%;
+    padding: 10px;
+    width: 300px;
+}
+
+.recomendations {
+    padding: 0px 12px;
+    margin-bottom: 20px;
+}
