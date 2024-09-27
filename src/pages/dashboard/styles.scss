@@ -1,0 +1,11 @@
+
+
+.dashboardContainer{
+    display: flex;
+    gap: 32px;
+    padding: 32px;
+
+    .dashboardContent{
+      flex: 1;
+    }
+} 
