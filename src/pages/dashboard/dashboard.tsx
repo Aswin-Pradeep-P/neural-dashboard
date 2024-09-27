@@ -1,11 +1,13 @@
 import { Paper } from '@mui/material';
 import { PieChart } from '@mui/x-charts/PieChart';
+import { useRecoilValue } from 'recoil';
 
 import styles from './dashboard.module.scss';
 import { assessmentReport, dashboardCard, leaderData, moduleReport } from './constants';
 import DashboardCard from '../../components/dashboardCard/dashboardCard';
 import LeaderBoard from '../../components/leaderBoard/leaderBoard';
 import Header from '../../components/header/header';
+import { selectedClass } from '../../atoms/selectedClass';
 
 const Dashboard = () => {
   return (
