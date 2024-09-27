@@ -8,6 +8,7 @@ import Assessments from '../pages/assessments/assessments';
 import Library from '../pages/library/library';
 import Chat from '../pages/chat/chat';
 import Planner from '../pages/planner/planner';
+import TakeAssessment from '../pages/assessments/takeAssessment';
 
 import './styles.scss';
 
@@ -21,6 +22,7 @@ function MainLayout() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/assessments" element={<Assessments />} />
           <Route path="/assessments/create" element={<CreateAssessment />} />
+          <Route path="/assessments/attempt" element={<TakeAssessment />} />
           <Route path="/library" element={<Library />} />
           <Route path="/planner" element={<Planner />} />
           <Route path="/chat" element={<Chat />} />
