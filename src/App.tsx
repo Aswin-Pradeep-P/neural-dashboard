@@ -1,8 +1,9 @@
+import RootLayout from "./layout/rootLayout";
 
 function App() {
   return (
     <div className="App">
-      Hi Keycode
+      <RootLayout />
     </div>
   );
 }
