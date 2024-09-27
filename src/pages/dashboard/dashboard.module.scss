@@ -6,15 +6,15 @@
   .dashboardContent {
     flex: 1;
     padding: 32px;
-    border-top-left-radius: 40px;
-    border-top-right-radius: 40px;
+    border-top-left-radius: 32px;
+    border-top-right-radius: 32px;
     box-shadow: none;
   }
 
   .dashboardWrapper {
     background: #f5f9f8;
-    border-top-left-radius: 40px;
-    border-top-right-radius: 40px;
+    border-top-left-radius: 32px;
+    border-top-right-radius: 32px;
     width: calc(100% - 390px);
 
     @media only screen and (max-width: 1600px) {
