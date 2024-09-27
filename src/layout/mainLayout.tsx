@@ -8,11 +8,12 @@ import CreateAssessment from '../pages/assessments/createAssessment';
 import Assessments from '../pages/assessments/assessments';
 import Library from '../pages/library/library';
 import Chat from '../pages/chat/chat';
-import Planner from '../pages/planner/planner';
+import CreatePlan from '../pages/planner/createPlan';
 import TakeAssessment from '../pages/assessments/takeAssessment';
+import StudentDashboard from '../pages/student-dashboard/studentDashboard';
+import Plans from '../pages/planner/plans';
 
 import './styles.scss';
-import StudentDashboard from '../pages/student-dashboard/studentDashboard';
 
 function MainLayout() {
 
@@ -27,7 +28,8 @@ function MainLayout() {
           <Route path="/assessments/create" element={<CreateAssessment />} />
           <Route path="/assessments/attempt" element={<TakeAssessment />} />
           <Route path="/library" element={<Library />} />
-          <Route path="/planner" element={<Planner />} />
+          <Route path="/planner" element={<Plans />} />
+          <Route path="/planner/create" element={<CreatePlan />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/students" element={<Students />} />
           <Route path='/students/:studentId' element={<StudentDashboard />} />
