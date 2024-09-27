@@ -1,10 +1,14 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, Grid2 } from '@mui/material';
+import moment from 'moment';
 
 import Button from '../../components/button/button';
 
 import styles from './library.module.scss';
+import { useGetSubjects } from '../../api/subjects/subjects';
+import { useRecoilValue } from 'recoil';
+import { selectedClass } from '../../atoms/selectedClass';
 interface FileData {
   name: string;
   subject: string;
@@ -29,6 +33,16 @@ const uploads: FileData[] = [
 
 const Library: React.FC = () => {
   const [files, setFiles] = useState<FileData[]>(uploads);
+  const grade = useRecoilValue(selectedClass)
+  const { getSubjects, getSubjectsResponse } = useGetSubjects(grade.id);
+
+  useEffect(() => {
+    getSubjects({
+      onCompleted: (res) =>{
+        console.log(res)
+      }
+    });
+  }, []);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const newFiles = acceptedFiles.map((file) => ({
@@ -57,18 +71,18 @@ const Library: React.FC = () => {
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
-              <TableCell>Subject</TableCell>
-              <TableCell>Uploaded By</TableCell>
+              {/* <TableCell>Subject</TableCell>
+              <TableCell>Uploaded By</TableCell> */}
               <TableCell>Uploaded At</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {files.map((file, index) => (
+            {getSubjectsResponse?.map((file: any, index: number) => (
               <TableRow key={index} style={index % 2 === 0 ? { backgroundColor: 'rgba(211, 238, 227, 0.3)' } : {}}>
                 <TableCell>{file.name}</TableCell>
                 <TableCell>{file.subject}</TableCell>
                 <TableCell>{file.uploadedBy}</TableCell>
-                <TableCell>{file.uploadedAt}</TableCell>
+                <TableCell>{moment(file.uploadedAt).format('DD-MM-YYYY')}</TableCell>
               </TableRow>
             ))}
           </TableBody>

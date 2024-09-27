@@ -7,15 +7,15 @@ import { useGetStudents } from '../../api/students/students';
 import StudentCard from './components/student-card/studentCard';
 
 import styles from './students.module.scss';
-import { Padding } from '@mui/icons-material';
 
 interface Student {
-  name: string;
-  email: string;
-  type: string;
-  phone: string;
-  id: string;
+  avgScore: number;
   dob: string;
+  email: string;
+  id: string;
+  name: string;
+  phone: string;
+  type: string;
 }
 
 const Students = () => {
@@ -46,9 +46,9 @@ const Students = () => {
               <div className={styles.studentFilter}><FilterListIcon /></div>
             </div>
             <Grid2 container={true} gap={4} justifyContent="space-between">
-              {getStudentsList()?.map(({ email, name }: Student, index: number) => (
+              {getStudentsList()?.map(({ email, id,  name }: Student, index: number) => (
                 <Grid2>
-                  <StudentCard email={email} name={name} rollNumber={index+1} />
+                  <StudentCard email={email} id={id} name={name} rollNumber={index+1} />
                 </Grid2>
               ))}
             </Grid2>
