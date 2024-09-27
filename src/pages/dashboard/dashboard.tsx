@@ -10,10 +10,10 @@ import Header from '../../components/header/header';
 const Dashboard = () => {
   return (
     <div className={styles.dashboardContainer}>
-      <div className='dashboard-wrapper'>
+      <Header />
+      <div className={styles.dashboardWrapper}>
         <Paper className={styles.dashboardContent}>
           <h1>Dashboard</h1>
-          <Header />
           <Paper className={styles.dashboardHeader}></Paper>
           <Paper className={styles.dashboardCount}>
             {dashboardCard.map((card) => (

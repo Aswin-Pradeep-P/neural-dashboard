@@ -7,8 +7,8 @@ import Avatar from '../avatar/avatar';
 const Header = () => {
   return (
     <Paper className={styles.header}>
-      <Avatar>Martin maecus</Avatar>
-      <span> Hello, Martin</span>
+      {/* <Avatar>Martin maecus</Avatar> */}
+      <span> Hello, Martin 👋</span>
     </Paper>
   );
 };
