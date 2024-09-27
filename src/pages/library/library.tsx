@@ -36,7 +36,8 @@ const Library: React.FC = () => {
 
   return (
     <Box padding={4} className={styles.libraryWrapper}>
-      <Grid2 justifyContent="flex-end" container={true}>
+      <Grid2 justifyContent="space-between" alignItems="center" marginBottom="0" container={true}>
+        <h1>Library</h1>
         <div {...getRootProps()}>
           <input {...getInputProps()} />
           <Button label="Upload to library" onClick={open} />
