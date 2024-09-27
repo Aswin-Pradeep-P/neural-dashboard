@@ -5,11 +5,13 @@ import './styles.scss';
 const Dashboard = () => {
   return (
     <div className="dashboardContainer">
-      <Paper elevation={16} className="dashboardContent">
-        <Paper className="dashboardHeader">Header</Paper>
-        <Paper className="statistics">Stats</Paper>
-        <Paper className="charts">Charts</Paper>
-      </Paper>
+      <div className='dashboard-wrapper'>
+        <Paper elevation={16} className="dashboardContent">
+          <Paper className="dashboardHeader">Header</Paper>
+          <Paper className="statistics">Stats</Paper>
+          <Paper className="charts">Charts</Paper>
+        </Paper>
+      </div>
       <div>
         Leaderboard
       </div>
