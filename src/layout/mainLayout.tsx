@@ -1,6 +1,7 @@
 import {  Route, Routes } from 'react-router-dom';
 
 import Navbar from '../components/navbar/navbar';
+import ChatBot from '../components/chatbot/chatbot';
 import Dashboard from '../pages/dashboard/dashboard';
 import Students from '../pages/students/students';
 import CreateAssessment from '../pages/assessments/createAssessment';
@@ -20,6 +21,7 @@ function MainLayout() {
   return (
     <div className="App">
       <Navbar />
+      <ChatBot />
       <div className="mainLayout">
         <Routes>
           <Route path="/dashboard" element={<Dashboard />} />
