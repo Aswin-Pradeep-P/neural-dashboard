@@ -5,7 +5,8 @@ const FormInput: FC<TextFieldProps> = (props) => {
   return (
     <TextField 
       {...props} 
-      InputProps={{
+      InputProps={
+        props.InputProps || {
         style: {
           height: '50px',
           borderRadius: '12px',
