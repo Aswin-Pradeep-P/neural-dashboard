@@ -1,35 +1,64 @@
-import React, { useEffect } from 'react';
-import { Card, CardContent, CardActions, IconButton, Menu, MenuItem, Box, Typography, Grid, Grid2 } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Card, CardContent, CardActions, IconButton, Menu, MenuItem, Box, Typography, Grid2 } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 
 import styles from './createAssessment.module.scss'
 import Button from '../../components/button/button';
-import { useGetAssessments } from '../../api/assessment/assesment';
+import { useGenerateAssessment, useGetAssessments } from '../../api/assessment/assesment';
 import { capitalize } from 'lodash';
+import DialogBox from './dialog';
+import CircularLoader from '../../components/circular-loader/circularLoader';
+import { useSetRecoilState } from 'recoil';
+import { questionsAtom } from '../../atoms/questions';
 
-const assessments = [
-  { id: 1, name: 'Assessment 1', subject: 'Math', createdDate: '2023-10-01' },
-  { id: 2, name: 'Assessment 2', subject: 'Science', createdDate: '2023-10-02' },
-  // Add more assessments as needed
-];
 
 const Assessments: React.FC = () => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [selectedAssessment, setSelectedAssessment] = React.useState<null | number>(null);
   const navigate = useNavigate();
-  const { getAssessments, getAssessmentsResponse = {assessments: []} } = useGetAssessments();
 
-  console.log(getAssessmentsResponse)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [selectedAssessment, setSelectedAssessment] = useState<null | number>(null);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [difficulty, setDifficulty] = useState(null);
+  const setQuestions = useSetRecoilState<any[]>(questionsAtom);
+  const [chatInput, setChatInput] = useState('');
+  const [subject, setSubject] = useState(null);
+
+  const { getAssessments, getAssessmentsResponse = {assessments: []} } = useGetAssessments();
+  const { generateAssessment, generatingAssessment } = useGenerateAssessment();
 
   useEffect(() => {
     getAssessments({
       onCompleted: (data) => {
-        console.log(data);
+        // console.log(data);
       }
     });
   }, [])
+
+  const onGenerateAssessment = (topic: string) => {
+    const data: any = {
+      topic: topic,
+      difficulty,
+      question_distribution: {
+        MCQ: 2,
+        'True/False': 1,
+        'Short Answer': 1,
+        Essay: 1,
+        'Assertion-Reason': 1,
+        'Case Study': 1,
+      },
+    };
+    generateAssessment({
+      data,
+      onCompleted: (data) => {
+        setOpenDialog(false);
+        setQuestions(data.map((data: any) => ({ ...data, options: data.choices, text: data.question })));
+        navigate('/assessments/create');
+      },
+    });
+    // Call the API to generate the assessment
+  };
 
   const handleClick = (event: React.MouseEvent<HTMLElement>, id: number) => {
     setAnchorEl(event.currentTarget);
@@ -49,27 +78,50 @@ const Assessments: React.FC = () => {
     handleClose();
   };
 
+
   const handleCreateAssessment = () => {
-    navigate('/assessments/create');
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
+  const handleDifficultyChange = (newValue: any) => {
+    setDifficulty(newValue);
+  };
+
+  const handleSubjectChange = (newValue: any) => {
+    setSubject(newValue);
+  };
+
+
+  const handleChatInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChatInput(event.target.value);
+  };
+
+  const handleChatSubmit = () => {
+   onGenerateAssessment(chatInput);
   };
 
   return (
     <Box className={styles.assessmentWrapper}>
+      {generatingAssessment && <CircularLoader />}
       <Box display="flex" justifyContent="flex-end" mb={2}>
         <Button label="Create Assessment" onClick={handleCreateAssessment}></Button>
       </Box>
-      <Grid2 container spacing={2}>
+      <Grid2 container={true} gap={4}>
         {getAssessmentsResponse?.assessments?.map((assessment: any) => (
           <Grid2 key={assessment.id}>
-            <Card sx={{ width: 300 }}> {/* Adjust the width value as needed */}
+            <Card sx={{ width: 300 }} className={styles.assessmentCard}> {/* Adjust the width value as needed */}
               <CardContent>
-                <Typography variant="h6">{assessment.name}</Typography>
+                <Typography variant="h6" className={styles.assessmentName}>{assessment.name}</Typography>
                 <Typography color="textSecondary">Subject: {assessment.subject.name}</Typography>
                 <Typography color="textSecondary">{assessment.grade.name}</Typography>
                 <Typography color="textSecondary">Level: {capitalize(assessment.level)}</Typography>
                 <Typography color="textSecondary">Created Date: {moment(assessment.createdAt).format('DD-MM-YYYY')}</Typography>
               </CardContent>
-              <CardActions sx={{ justifyContent: 'flex-end' }}>
+              <CardActions sx={{ justifyContent: 'flex-end' }} className={styles.cardActions}>
                 <IconButton onClick={(event) => handleClick(event, assessment.id)}>
                   <MoreVertIcon />
                 </IconButton>
@@ -93,6 +145,17 @@ const Assessments: React.FC = () => {
           </Grid2>
         ))}
       </Grid2>
+      <DialogBox 
+        open={openDialog} 
+        onClose={handleCloseDialog} 
+        difficulty={difficulty} 
+        handleDifficultyChange={handleDifficultyChange}
+        subject={subject}
+        handleSubjectChange={handleSubjectChange}
+        chatInput={chatInput}
+        handleChatInputChange={handleChatInputChange}
+        handleChatSubmit={handleChatSubmit}
+      />
     </Box>
   );
 };

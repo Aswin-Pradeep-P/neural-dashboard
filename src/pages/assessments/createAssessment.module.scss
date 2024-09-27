@@ -1,18 +1,53 @@
 .createAssessment {
   display: flex;
-
+  gap: 25px !important;
+  .editor{
+    display: flex;
+    gap: 20px;
+    width: 100%;
+  }
   .editSection{
     flex: 1;
     padding: 16px;
+    border-radius: 16px;
   }
-
   .viewSection{
     flex: 1;
     padding: 16px;
+    border-radius: 16px;
+  }
+  .btnWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
   }
 }
 
-.assessmentWrapper{}
+.assessmentWrapper{
+  .assessmentCard{
+    height: 250px;
+    padding-top: 20px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 16px;
+    box-shadow: 0px 8px 32px -32px #000;
+    border: none;
+    .cardActions{
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+    .assessmentName{
+      font-weight: 600;
+      line-height: 30px;
+      padding-bottom: 10px;
+      padding-top: 10px;
+      color: #33314C;
+      max-width: 90%;
+    }
+  }
+}
 
 td{
   line-height: 1.8 !important;
@@ -31,3 +66,17 @@ th{
   padding: 24px 24px 20px 24px !important;
   border: none !important;
 }
+
+.dialogWrapper{
+  .selectorArea{
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .dialogbtn{
+    align-self: flex-end;
+  }
+}
+
+

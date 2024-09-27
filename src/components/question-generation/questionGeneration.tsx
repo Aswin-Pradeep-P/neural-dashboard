@@ -46,7 +46,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ questions }) => {
   };
 
   const handleSubmit = () => {
-    console.log(editableQuestions);
+    // console.log(editableQuestions);
   };
 
   const currentQuestion = editableQuestions[currentQuestionIndex];

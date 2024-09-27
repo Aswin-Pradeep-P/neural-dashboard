@@ -39,7 +39,7 @@ const Library: React.FC = () => {
   useEffect(() => {
     getSubjects({
       onCompleted: (res) =>{
-        console.log(res)
+        // console.log(res)
       }
     });
   }, []);
