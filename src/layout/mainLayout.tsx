@@ -10,9 +10,6 @@ import Library from '../pages/library/library';
 import Chat from '../pages/chat/chat';
 import Planner from '../pages/planner/planner';
 import TakeAssessment from '../pages/assessments/takeAssessment';
-import StudentProfile from '../pages/student-profile/studentProfile';
-import Questionnaire from '../components/question-generation/questionGeneration';
-import { mockQuestions } from '../data';
 
 import './styles.scss';
 import StudentDashboard from '../pages/student-dashboard/studentDashboard';
@@ -34,7 +31,6 @@ function MainLayout() {
           <Route path="/chat" element={<Chat />} />
           <Route path="/students" element={<Students />} />
           <Route path='/students/:studentId' element={<StudentDashboard />} />
-          <Route path="/assesments" element={<Questionnaire questions={mockQuestions} />} />
         </Routes>
       </div>
     </div>

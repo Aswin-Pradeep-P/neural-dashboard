@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import FormInput from '../../components/form-input/formInput';
 import Button from '../../components/button/button';
 import Select from '../../components/select/select';
-import { useGetLessonPlan } from '../../api/planner/planner';
+import { useGetLessonPlan, useSaveLessonPlan } from '../../api/planner/planner';
 import moment from 'moment';
-import { IconButton } from '@mui/material';
-import { RefreshOutlined, AddOutlined } from '@mui/icons-material';
+import { IconButton, TextField } from '@mui/material';
+import { RefreshOutlined, AddOutlined, EditOutlined, SaveOutlined } from '@mui/icons-material';
 import { cloneDeep } from 'lodash';
 import CircularLoader from '../../components/circular-loader/circularLoader';
+import { useRecoilValue } from 'recoil';
+import { profileAtom } from '../../atoms/profile';
+import { subjectId } from '../../constants';
+import { useNavigate } from 'react-router-dom';
 
 const lessonPlanMapping: any = {
   expected_learning_outcomes: 'Expected learning outcomes',
@@ -27,6 +31,11 @@ const Planner: React.FC = () => {
   const { getLessonPlan, gettingLessonPlan } = useGetLessonPlan();
   const [lessonPlan, setLessonPlan] = useState<any>({});
   const [draftPlan, setDraftPlan] = useState<any>({});
+  const [editableSections, setEditableSections] = useState<{ [key: string]: boolean }>({});
+  const [planName, setPlanName] = useState<string>('Draft Plan');
+  const profile = useRecoilValue(profileAtom);
+  const { saveLessonPlan, savingLessonPlan } = useSaveLessonPlan(profile.id);
+  const navigate = useNavigate();
 
   const handleSend = () => {
     // Simulate plan generation
@@ -67,9 +76,42 @@ const Planner: React.FC = () => {
     console.log(`Added ${key} to draft plan`);
   };
 
+  const handleEdit = (key: string) => {
+    setEditableSections((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
+
+  const handleSave = (key: string, value: string) => {
+    setLessonPlan((prevLessonPlan: any) => ({
+      ...prevLessonPlan,
+      [key]: value.split('\n'),
+    }));
+    handleEdit(key);
+  };
+
+  const handleSaveDraft = () => {
+    const data = {
+      name: planName,
+      subjectId,
+      data: draftPlan
+    }
+    saveLessonPlan({
+      data,
+      onCompleted: () => {
+        navigate('/lesson-plans');
+      }
+  })
+;  };
+
+  const handlePlanNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPlanName(e.target.value);
+  };
+
   return (
     <div style={{ display: 'flex', width: '100%', height: 'calc(100vh)' }}>
-      {gettingLessonPlan && <CircularLoader />}
+      {(gettingLessonPlan || savingLessonPlan) && <CircularLoader />}
       <div style={{ flex: 1 }}>
         <div style={{ display: 'flex' }}>
           <div style={{ marginRight: '16px' }}>
@@ -88,7 +130,7 @@ const Planner: React.FC = () => {
             value={subject}
             onChange={(newValue) => setSubject(newValue)}
             options={[
-              { label: 'Math', value: 'a7ba5181-3d8d-402c-9197-6bc6b7e5721c' },
+              { label: 'Math', value: subjectId },
               { label: 'Science', value: 'Science' },
               { label: 'History', value: 'History' },
               { label: 'Language', value: 'Language' },
@@ -122,20 +164,43 @@ const Planner: React.FC = () => {
                   <IconButton onClick={() => handleAddToDraft(key)}>
                     <AddOutlined />
                   </IconButton>
+                  <IconButton onClick={() => handleEdit(key)}>
+                    {editableSections[key] ? <SaveOutlined /> : <EditOutlined />}
+                  </IconButton>
                 </div>
               </div>
-              <ul>
-                {/* Assuming you have an array of items for each key in the lesson plan */}
-                {(lessonPlan[key] || []).map((item: string, index: number) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
+              {editableSections[key] ? (
+                <TextField
+                  multiline
+                  fullWidth
+                  rows={4}
+                  defaultValue={(lessonPlan[key] || []).join('\n')}
+                  onBlur={(e) => handleSave(key, e.target.value)}
+                />
+              ) : (
+                <ul>
+                  {(lessonPlan[key] || []).map((item: string, index: number) => (
+                    <li key={index}>{item}</li>
+                  ))}
+                </ul>
+              )}
             </div>
           ))}
         </div>
       </div>
       <div style={{ flex: 1, padding: '10px' }}>
-        <h2>Draft Plan</h2>
+        {Object.keys(draftPlan).length !== 0 && (
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <TextField
+              value={planName}
+              onChange={handlePlanNameChange}
+              variant="outlined"
+              fullWidth
+              style={{ marginRight: '16px' }}
+            />
+            <Button label="Save" onClick={handleSaveDraft} />
+          </div>
+        )}
         {Object.keys(draftPlan)?.map((key) => (
           <div key={key} style={{ marginBottom: '20px' }}>
             <h3>{lessonPlanMapping[key]}</h3>
