@@ -29,19 +29,17 @@ const Dashboard = () => {
             <div className={styles.statistics}>
               <Paper className={styles.assessmentReport}>
                 <h3>Assessment</h3>
-                <PieChart series={assessmentReport} width={400} height={200} />
+                <PieChart series={assessmentReport} width={330} height={200} />
               </Paper>
               <Paper className={styles.modulesReport}>
                 <h3>Module</h3>
-                <PieChart series={moduleReport} width={400} height={200} />
+                <PieChart series={moduleReport} width={330} height={200} />
               </Paper>
             </div>
           </Paper>
         </Paper>
       </div>
-      <div>
-        <LeaderBoard leaderList={leaderData} />
-      </div>
+      <LeaderBoard leaderList={leaderData} />
     </div>
   );
 };

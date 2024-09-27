@@ -44,9 +44,8 @@ const Library: React.FC = () => {
   const { getRootProps, getInputProps, open } = useDropzone({ onDrop });
 
   return (
-    <Box padding={4} className={styles.libraryWrapper}>
-      <Grid2 justifyContent="space-between" alignItems="center" marginBottom="0" container={true}>
-        <h1>Library</h1>
+    <Box className={styles.libraryWrapper}>
+      <Grid2 justifyContent="flex-end" container={true}>
         <div {...getRootProps()}>
           <input {...getInputProps()} />
           <Button label="Upload to library" onClick={open} />
