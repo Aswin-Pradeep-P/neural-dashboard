@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton, Menu, MenuItem, Paper, Button, Box } from '@mui/material';
+import { Card, CardContent, CardActions, IconButton, Menu, MenuItem, Button, Box, Typography, Grid, Grid2 } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom';
 
@@ -43,39 +43,39 @@ const Assessments: React.FC = () => {
           Create Assessment
         </Button>
       </Box>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Subject</TableCell>
-              <TableCell>Created Date</TableCell>
-              <TableCell>Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {assessments.map((assessment) => (
-              <TableRow key={assessment.id}>
-                <TableCell>{assessment.name}</TableCell>
-                <TableCell>{assessment.subject}</TableCell>
-                <TableCell>{assessment.createdDate}</TableCell>
-                <TableCell>
-                  <IconButton onClick={(event) => handleClick(event, assessment.id)}>
-                    <MoreVertIcon />
-                  </IconButton>
-                  <Menu
-                    anchorEl={anchorEl}
-                    open={Boolean(anchorEl) && selectedAssessment === assessment.id}
-                    onClose={handleClose}
-                  >
-                    <MenuItem onClick={handleShare}>Share</MenuItem>
-                  </Menu>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <Grid2 container spacing={2}>
+        {assessments.map((assessment) => (
+          <Grid2 key={assessment.id}>
+            <Card sx={{ width: 300 }}> {/* Adjust the width value as needed */}
+              <CardContent>
+                <Typography variant="h6">{assessment.name}</Typography>
+                <Typography color="textSecondary">Subject: {assessment.subject}</Typography>
+                <Typography color="textSecondary">Created Date: {assessment.createdDate}</Typography>
+              </CardContent>
+              <CardActions sx={{ justifyContent: 'flex-end' }}>
+                <IconButton onClick={(event) => handleClick(event, assessment.id)}>
+                  <MoreVertIcon />
+                </IconButton>
+                <Menu
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl) && selectedAssessment === assessment.id}
+                  onClose={handleClose}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                >
+                  <MenuItem onClick={handleShare}>Share</MenuItem>
+                </Menu>
+              </CardActions>
+            </Card>
+          </Grid2>
+        ))}
+      </Grid2>
     </Box>
   );
 };

@@ -12,14 +12,14 @@ import TakeAssessment from '../pages/assessments/takeAssessment';
 
 import './styles.scss';
 
-
 function MainLayout() {
+
   return (
     <div className="App">
       <Navbar />
       <div className="mainLayout">
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/assessments" element={<Assessments />} />
           <Route path="/assessments/create" element={<CreateAssessment />} />
           <Route path="/assessments/attempt" element={<TakeAssessment />} />
