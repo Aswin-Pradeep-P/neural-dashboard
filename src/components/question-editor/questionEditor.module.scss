@@ -7,6 +7,13 @@
   height: calc(100vh - 100px);
   overflow-y: auto;
   margin-bottom: 16px;
+  padding: 20px 10px;
+  .questionDiv{
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
 }
 
 .noQuestions {
@@ -14,4 +21,21 @@
   justify-content: center;
   align-items: center;
   height: calc(100vh - 108px);
+}
+
+.questionList{
+ list-style: none;
+ display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    .order{
+      padding-top: 1px;
+    }
+}
+
+.saveAnswer{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
 }
