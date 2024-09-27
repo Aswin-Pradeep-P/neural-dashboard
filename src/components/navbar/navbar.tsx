@@ -7,7 +7,10 @@ import ChatIcon from '@mui/icons-material/Chat';
 
 const Navbar: React.FC = () => {
   return (
-    <Drawer variant="permanent">
+    <Drawer variant="permanent" className='home-nav'>
+      <div className='header-logo'>
+        <img src='/logo.svg' />
+      </div>
       <List>
         <ListItem>
           <ListItemIcon>
