@@ -13,7 +13,7 @@ const navItems =  [
     { name: 'Dashboard', icon: <DashboardIcon />, path: '/' },
     { name: 'Students', icon: <Person />, path: '/students' },
     { name: 'Subject Library', icon: <LibraryBooksIcon />, path: '/library' },
-    { name: 'Assessment', icon: <AssessmentIcon />, path: '/assessment' },
+    { name: 'Assessments', icon: <AssessmentIcon />, path: '/assessments' },
     { name: 'Chat', icon: <ChatIcon />, path: '/chat' } ]
 
 const Navbar: React.FC = () => {

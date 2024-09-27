@@ -31,21 +31,27 @@ const QuestionsViewer: React.FC<QuestionsViewerProps> = ({ questions, onAddToAss
   return (
     <div>
       <div className={styles.questions}>
-        {questions.map((question, index) => (
-          <div key={index} style={{ marginBottom: '20px' }}>
-            <p>{question.text}</p>
-            {(question.type === 'MCQ' || question.type === 'True-False' || question.type === 'Assertion-Reason') && (
-              <ul>
-                {question.options?.map((option, idx) => (
-                  <li key={idx}>{option}</li>
-                ))}
-              </ul>
-            )}
-            <Button variant="contained" label="Add" onClick={() => onAddToAssessment(question)}>
-              Add
-            </Button>
+        {questions.length === 0 ? (
+          <div className={styles.noQuestions}>
+            <p>Generate your first questionnaire!</p>
           </div>
-        ))}
+        ) : (
+          questions.map((question, index) => (
+            <div key={index} style={{ marginBottom: '20px' }}>
+              <p>{question.text}</p>
+              {(question.type === 'MCQ' || question.type === 'True-False' || question.type === 'Assertion-Reason') && (
+                <ul>
+                  {question.options?.map((option, idx) => (
+                    <li key={idx}>{option}</li>
+                  ))}
+                </ul>
+              )}
+              <Button variant="contained" label="Add" onClick={() => onAddToAssessment(question)}>
+                Add
+              </Button>
+            </div>
+          ))
+        )}
       </div>
       <div style={{ marginTop: '20px' }}>
         <FormInput

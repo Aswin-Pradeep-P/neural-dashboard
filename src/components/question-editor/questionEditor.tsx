@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from '../button/button';
 import FormInput from '../form-input/formInput';
 
-import styles from  './questionEditor.module.scss'
+import styles from './questionEditor.module.scss';
 
 interface Question {
   text: string;
@@ -41,62 +41,68 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({ editableQuestions, ques
 
   return (
     <div>
-      <div className={styles.questions}>
-        {editableQuestions.map((question, qIndex) => (
-          <div key={qIndex} style={{ marginBottom: '20px' }}>
-            <div style={{ marginBottom: '10px' }}>
-              <strong>Q{qIndex + 1}:</strong>
-            </div>
-            <FormInput
-              value={question.text}
-              onChange={(e) => handleTextChange(qIndex, e.target.value)}
-              className={styles.formInput}
-              multiline={true}
-              rows={2}
-            />
-            {(question.type === 'MCQ' || question.type === 'True-False' || question.type === 'Assertion-Reason') && (
-              <ul>
-                <div style={{ marginBottom: '5px' }}>
-                  <strong>
-                    A{qIndex + 1}.{qIndex + 1}:
-                  </strong>
+      {editableQuestions.length > 0 ? (
+        <>
+          <div className={styles.questions}>
+            {editableQuestions.map((question, qIndex) => (
+              <div key={qIndex} style={{ marginBottom: '20px' }}>
+                <div style={{ marginBottom: '10px' }}>
+                  <strong>Q{qIndex + 1}:</strong>
                 </div>
-                {question.options?.map((option, oIndex) => (
-                  <li key={oIndex}>
-                    <FormInput
-                      type="text"
-                      value={option}
-                      onChange={(e) => handleOptionChange(qIndex, oIndex, e.target.value)}
-                      style={{ width: '90%' }}
-                      margin="dense"
-                      variant="standard"
-                    />
-                  </li>
-                ))}
-              </ul>
-            )}
-            {(question.type === 'Short-Answer' || question.type === 'Essay' || question.type === 'Case-Study') && (
-              <FormInput
-                value={question.expectedAnswer || ''}
-                onChange={(e) => handleExpectedAnswerChange(qIndex, e.target.value)}
-                className={styles.formInput}
-                multiline={true}
-                rows={4}
-                placeholder="Expected Answer"
-              />
-            )}
+                <FormInput
+                  value={question.text}
+                  onChange={(e) => handleTextChange(qIndex, e.target.value)}
+                  className={styles.formInput}
+                  multiline={true}
+                  rows={2}
+                />
+                {(question.type === 'MCQ' || question.type === 'True-False' || question.type === 'Assertion-Reason') && (
+                  <ul>
+                    <div style={{ marginBottom: '5px' }}>
+                      <strong>
+                        A{qIndex + 1}.{qIndex + 1}:
+                      </strong>
+                    </div>
+                    {question.options?.map((option, oIndex) => (
+                      <li key={oIndex}>
+                        <FormInput
+                          type="text"
+                          value={option}
+                          onChange={(e) => handleOptionChange(qIndex, oIndex, e.target.value)}
+                          style={{ width: '90%' }}
+                          margin="dense"
+                          variant="standard"
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {(question.type === 'Short-Answer' || question.type === 'Essay' || question.type === 'Case-Study') && (
+                  <FormInput
+                    value={question.expectedAnswer || ''}
+                    onChange={(e) => handleExpectedAnswerChange(qIndex, e.target.value)}
+                    className={styles.formInput}
+                    multiline={true}
+                    rows={4}
+                    placeholder="Expected Answer"
+                  />
+                )}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <Button
-        label="Save"
-        onClick={() => {
-          console.log(() => editableQuestions);
-        }}
-        variant='contained'
-      >
-        Save
-      </Button>
+          <Button
+            label="Save"
+            onClick={() => {
+              console.log(() => editableQuestions);
+            }}
+            variant='contained'
+          >
+            Save
+          </Button>
+        </>
+      ) : (
+        <div className={styles.noQuestions}>No questions available.</div>
+      )}
     </div>
   );
 };

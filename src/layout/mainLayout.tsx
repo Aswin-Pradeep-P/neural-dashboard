@@ -10,6 +10,7 @@ import './styles.scss';
 import QuestionsViewer from '../components/questions-viewer/questionsViewer';
 import QuestionEditor from '../components/question-editor/questionEditor';
 import CreateAssessment from '../pages/assetments/createAssessment';
+import Assessments from '../pages/assetments/assesments';
 
 
 function MainLayout() {
@@ -19,7 +20,8 @@ function MainLayout() {
       <div className="mainLayout">
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/assesments/create" element={<CreateAssessment />} />
+          <Route path="/assessments" element={<Assessments />} />
+          <Route path="/assessments/create" element={<CreateAssessment />} />
           <Route path="/students" element={<Students />} />
         </Routes>
       </div>

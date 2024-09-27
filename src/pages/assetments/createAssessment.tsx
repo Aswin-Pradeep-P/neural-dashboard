@@ -18,7 +18,7 @@ const CreateAssessment = () => {
         <QuestionEditor editableQuestions={editableQuestions} setEditableQuestions={setEditableQuestions} questions={[]} />
       </Paper>
       <Paper className={styles.viewSection}>
-        <QuestionsViewer questions={mockQuestions} onAddToAssessment={onAddToAssessment} />
+        <QuestionsViewer questions={[]} onAddToAssessment={onAddToAssessment} />
       </Paper>
     </Grid2>
   )
