@@ -5,7 +5,16 @@
     gap: 32px;
     padding: 32px;
 
+    background: #f5f9f8;
+    border-top-left-radius: 40px;
+    min-height: calc(100vh - 24px);
+    margin-top: 24px;
+
     .dashboardContent{
       flex: 1;
     }
 } 
+
+.css-1dtoofl-MuiPaper-root {
+  box-shadow: none !important;
+}

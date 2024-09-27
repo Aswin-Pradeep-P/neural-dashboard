@@ -1,19 +1,32 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { List, ListItem, ListItemIcon, ListItemText, Drawer } from '@mui/material';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import ChatIcon from '@mui/icons-material/Chat';
+import { Person } from '@mui/icons-material';
 
 const Navbar: React.FC = () => {
+  const navigate = useNavigate()
+
   return (
-    <Drawer variant="permanent">
+    <Drawer variant="permanent" className='home-nav'>
+      <div className='header-logo'>
+        <img src='/logo.svg' />
+      </div>
       <List>
         <ListItem>
           <ListItemIcon>
             <DashboardIcon />
           </ListItemIcon>
-          <ListItemText primary="Dashboard" />
+          <ListItemText primary="Dashboard" onClick={() => navigate('/')} />
+        </ListItem>
+        <ListItem >
+          <ListItemIcon>
+            <Person />
+          </ListItemIcon>
+          <ListItemText primary="Students" onClick={() => navigate('/students')} />
         </ListItem>
         <ListItem >
           <ListItemIcon>
