@@ -1,13 +1,42 @@
 .studentsContainer {
-    .studentsContent {
-        .studentsHeader {
+    background: #f5f9f8;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    min-height: calc(100vh - 24px);
+    margin-top: 24px;
+    padding: 32px 40px;
 
+    .studentsWrapper {
+        // background-color: #ffffff;
+        border-radius: 32px;
+    }
+
+    .studentsContent {
+        background: none;
+
+        .studentsHeader {
+            background: none;
+        }
+
+        .studentFilter {
+            padding: 10px;
+            margin-left: 10px;
         }
 
         .studentsSection {
+            background: none;
+
             .studentSearchFilterWrapper {
                 display: flex;
                 align-items: center;
+                // background: #ffffff;
+                border: none;
+                box-shadow: 0px 8px 32px -32px #000;
+                margin-bottom: 32px;
+
+                .MuiOutlinedInput-root {
+                    background: #ffffff;
+                }
             }
         }
     }
