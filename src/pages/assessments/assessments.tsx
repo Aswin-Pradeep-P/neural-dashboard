@@ -40,9 +40,8 @@ const Assessments: React.FC = () => {
   };
 
   return (
-    <Box padding={4} className={styles.assessmentWrapper}>
-      <Box display="flex" justifyContent="space-between" alignItems="center" marginBottom="0" mb={2}>
-        <h1>Assessments</h1>
+    <Box className={styles.assessmentWrapper}>
+      <Box display="flex" justifyContent="flex-end" mb={2}>
         <Button label="Create Assessment" onClick={handleCreateAssessment}></Button>
       </Box>
       <Grid2 container spacing={2}>

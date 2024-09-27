@@ -39,7 +39,7 @@ const achievements = ['AA', 'BB', 'CC', 'DD', 'EE', 'FF', 'ef', 'kn', 'ef', 'aw'
 const StudentProfile = () => {
     return (
         <div className={styles.studentProfileContainer}>
-            <Paper elevation={16} className={styles.studentProfileContent}>
+            <div className={styles.studentProfileContent}>
                 <div className={styles.leftSection}>
                     <Paper className={styles.personalInfoWrapper}>
                         <span>Personal Info</span>
@@ -153,7 +153,7 @@ const StudentProfile = () => {
                         </div>
                     </Paper>
                 </div>
-            </Paper>
+            </div>
         </div>
     );
 }
