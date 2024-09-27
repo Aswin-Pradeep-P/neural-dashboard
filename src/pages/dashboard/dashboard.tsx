@@ -7,6 +7,9 @@ import { assessmentReport, dashboardCard, leaderData } from './constants';
 import DashboardCard from '../../components/dashboardCard/dashboardCard';
 import LeaderBoard from '../../components/leaderBoard/leaderBoard';
 import Header from '../../components/header/header';
+import { useRecoilValue } from 'recoil';
+import { profileAtom } from '../../atoms/profile';
+import StudentDashboard from '../student-dashboard/studentDashboard';
 
 const pData = [77, 92, 68, 89, 85];
 const xLabels = [
@@ -18,6 +21,12 @@ const xLabels = [
 ];
 
 const Dashboard = () => {
+  const profile = useRecoilValue(profileAtom);
+
+  if(profile.type === 'student') {
+    return <StudentDashboard />
+  }
+
   return (
     <div className={styles.dashboardContainer}>
       <Header />

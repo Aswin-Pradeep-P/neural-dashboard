@@ -7,6 +7,8 @@ import AssessmentCard from './components/assessment-card/assessmentCard';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useGetStudent } from '../../api/students/students';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import { profileAtom } from '../../atoms/profile';
 
 const student = {
     name: "Alice Smith", //
@@ -51,8 +53,10 @@ const achievements = ['AA', 'BB', 'CC', 'DD', 'EE', 'FF', 'ef', 'kn', 'ek', 'aw'
 
 const StudentProfile = () => {
     const { studentId } = useParams();
+    const profile = useRecoilValue(profileAtom)
+    const id = studentId || profile.id;
 
-    const { getStudent, getStudentResponse } = useGetStudent(studentId as string);
+    const { getStudent, getStudentResponse } = useGetStudent(id as string);
 
     useEffect(() => {
         getStudent();

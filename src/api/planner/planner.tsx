@@ -22,3 +22,14 @@ export const useSaveLessonPlan = (teacherId: string) => {
 
   return { saveLessonPlan, savingLessonPlan, saveLessonPlanError, saveLessonPlanResponse };
 };
+
+export const useGetLessonPlans = (teacherId: string) => {
+  const {
+      callApi: getLessonPlans,
+      error: getLessonPlansError,
+      loading: gettingLessonPlans,
+      response: getLessonPlansResponse
+  } = useApi({ method: HttpMethod.POST, url: `${apiUrl}/lesson-plan/user/${teacherId}` });
+
+  return { getLessonPlans, getLessonPlansError, getLessonPlansResponse, gettingLessonPlans };
+};

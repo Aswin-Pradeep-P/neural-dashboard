@@ -8,6 +8,8 @@ import ChatIcon from '@mui/icons-material/Chat';
 import { Person } from '@mui/icons-material';
 
 import styles from './navbar.module.scss';
+import { useRecoilValue } from 'recoil';
+import { profileAtom } from '../../atoms/profile';
 
 const navItems =  [
     { name: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard', paths : ['/dashboard', '/dashboard'] },
@@ -17,12 +19,31 @@ const navItems =  [
     { name: 'Planner', icon: <ChatIcon />, path: '/planner', paths: ['/planner', '/planner/create'] },
     { name: 'Chat', icon: <ChatIcon />, path: '/chat', paths: ['/chat'] } ]
 
+    const studentNavItems =  [
+      { name: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard', paths : ['/dashboard'] },
+      { name: 'Assessments', icon: <AssessmentIcon />, path: '/assessments', paths: ['/assessments', '/assessments/create'] }]
+
+      const parentNavItems =  [
+        { name: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard', paths : ['/dashboard'] },
+        { name: 'Assessments', icon: <AssessmentIcon />, path: '/assessments', paths: ['/assessments', '/assessments/create'] }]
+
 const Navbar: React.FC = () => {
   const navigate = useNavigate()
   const location = useLocation()
+  const profile = useRecoilValue(profileAtom);
 
   const isCurrentUrl = (paths: string[]) => {
     return paths.includes(location.pathname)
+  }
+
+  const getItems = () => {
+    if(profile.type === 'student') {
+      return studentNavItems
+    }
+    if(profile.type === 'parent') {
+      return parentNavItems;
+    }
+    return navItems;
   }
 
   return (
@@ -32,7 +53,7 @@ const Navbar: React.FC = () => {
       </div>
       <List>
         {
-          navItems.map((item) => (
+          getItems().map((item) => (
             <ListItem key={item.name} className={isCurrentUrl(item.paths) ? styles.currentUrl : ''}>
               <ListItemIcon>
                 {item.icon}

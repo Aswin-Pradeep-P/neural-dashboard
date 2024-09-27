@@ -13,6 +13,8 @@ import { profileAtom } from '../../atoms/profile';
 import { subjectId } from '../../constants';
 import { useNavigate } from 'react-router-dom';
 
+import styles from './createPlan.module.scss'
+
 const lessonPlanMapping: any = {
   expected_learning_outcomes: 'Expected learning outcomes',
   expected_skill_development: 'Expected skill development',
@@ -23,7 +25,7 @@ const lessonPlanMapping: any = {
   assessment_methods: 'Assessment methods',
 };
 
-const Planner: React.FC = () => {
+const CreatePlan: React.FC = () => {
   const [plan, setPlan] = useState<string>('');
   const [message, setMessage] = useState<string>('');
   const [grade, setGrade] = useState<any>(null);
@@ -143,9 +145,13 @@ const Planner: React.FC = () => {
             type="text"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="Type your message"
+            placeholder="Type your plan here"
             style={{ width: '100%', marginTop: '10px' }}
             multiline={true}
+            classes={{
+              root: styles.root
+            }}
+            InputProps={{style: {height: 'unset'}}}
             rows={3}
           />
           <Button label="Send" onClick={handleSend} style={{ marginTop: '10px' }}>
@@ -216,4 +222,4 @@ const Planner: React.FC = () => {
   );
 };
 
-export default Planner;
+export default CreatePlan;
