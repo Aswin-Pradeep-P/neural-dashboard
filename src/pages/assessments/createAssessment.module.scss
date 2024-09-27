@@ -21,10 +21,16 @@
     padding: 32px 40px;
 }
 
+td{
+  line-height: 1.8 !important;
+  font-size: 16px !important;
+}
+
 tbody:last-child tr:last-child td{
   border-bottom: none;
 }
 
-tbody th{
-  font-size: 600;
+th{
+  font-weight: 700 !important;
+  font-size: 16px !important;
 }
