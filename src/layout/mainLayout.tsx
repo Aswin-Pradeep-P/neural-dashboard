@@ -15,6 +15,7 @@ import Questionnaire from '../components/question-generation/questionGeneration'
 import { mockQuestions } from '../data';
 
 import './styles.scss';
+import StudentDashboard from '../pages/student-dashboard/studentDashboard';
 
 function MainLayout() {
 
@@ -32,7 +33,7 @@ function MainLayout() {
           <Route path="/planner" element={<Planner />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/students" element={<Students />} />
-          <Route path='/students/:studentId' element={<StudentProfile />} />
+          <Route path='/students/:studentId' element={<StudentDashboard />} />
           <Route path="/assesments" element={<Questionnaire questions={mockQuestions} />} />
         </Routes>
       </div>
