@@ -8,6 +8,8 @@ import styles from './createAssessment.module.scss'
 import Button from '../../components/button/button';
 import { useGetAssessments } from '../../api/assessment/assesment';
 import { capitalize } from 'lodash';
+import { useRecoilValue } from 'recoil';
+import { profileAtom } from '../../atoms/profile';
 
 const assessments = [
   { id: 1, name: 'Assessment 1', subject: 'Math', createdDate: '2023-10-01' },
@@ -20,6 +22,7 @@ const Assessments: React.FC = () => {
   const [selectedAssessment, setSelectedAssessment] = React.useState<null | number>(null);
   const navigate = useNavigate();
   const { getAssessments, getAssessmentsResponse = {assessments: []} } = useGetAssessments();
+  const profile = useRecoilValue(profileAtom)
 
   console.log(getAssessmentsResponse)
 
@@ -42,10 +45,13 @@ const Assessments: React.FC = () => {
   };
 
   const handleShare = () => {
-    if (selectedAssessment !== null) {
-      // Implement your share logic here
-      alert(`Sharing assessment with id: ${selectedAssessment}`);
+    if(profile.type === 'student') {
+      navigate(`/assessments/${selectedAssessment}`);
     }
+    // if (selectedAssessment !== null) {
+    //   // Implement your share logic here
+    //   alert(`Sharing assessment with id: ${selectedAssessment}`);
+    // }
     handleClose();
   };
 
@@ -53,11 +59,27 @@ const Assessments: React.FC = () => {
     navigate('/assessments/create');
   };
 
+  const handleAssessmentAction = (id: number) => {
+
+  }
+
+  const getAssessmentText = () => {
+    if(profile.type === 'teacher') {
+      return 'Share';
+    }
+    else if (profile.type === 'student') {
+      return 'Start';
+    }
+    else {
+      return 'View'
+    }
+  }
+
   return (
     <Box className={styles.assessmentWrapper}>
-      <Box display="flex" justifyContent="flex-end" mb={2}>
+      {profile.type === 'teacher' && <Box display="flex" justifyContent="flex-end" mb={2}>
         <Button label="Create Assessment" onClick={handleCreateAssessment}></Button>
-      </Box>
+      </Box>}
       <Grid2 container spacing={2}>
         {getAssessmentsResponse?.assessments?.map((assessment: any) => (
           <Grid2 key={assessment.id}>
@@ -86,7 +108,7 @@ const Assessments: React.FC = () => {
                     horizontal: 'right',
                   }}
                 >
-                  <MenuItem onClick={handleShare}>Share</MenuItem>
+                  <MenuItem onClick={handleShare}>{getAssessmentText()}</MenuItem>
                 </Menu>
               </CardActions>
             </Card>
