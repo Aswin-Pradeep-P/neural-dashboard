@@ -11,7 +11,10 @@ const Navbar: React.FC = () => {
   const navigate = useNavigate()
 
   return (
-    <Drawer variant="permanent">
+    <Drawer variant="permanent" className='home-nav'>
+      <div className='header-logo'>
+        <img src='/logo.svg' />
+      </div>
       <List>
         <ListItem>
           <ListItemIcon>
