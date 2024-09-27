@@ -6,33 +6,49 @@
   border-top-left-radius: 40px;
   min-height: calc(100vh - 24px);
   margin-top: 24px;
+  flex-wrap: wrap;
 
   .dashboardContent {
     flex: 1;
     padding: 32px;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+  }
+
+  .dashboardWrapper {
+    background: #f5f9f8;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    width: calc(100% - 390px);
+
+    @media only screen and (max-width: 1600px) {
+      width: calc(100% - 240px);
+    }
   }
 }
 
 .dashboardCount {
   display: flex;
-  padding: 32px;
+  // padding: 32px;
   justify-content: space-between;
   gap: 20px;
-  margin: 16px;
+  // margin: 16px;
+  box-shadow: none;
 }
 
 .charts {
   display: flex;
   flex-direction: column;
-  padding: 32px;
-  padding-top: 0px;
-  margin: 16px;
+  // padding: 32px;
+  margin-top: 16px;
+  // margin: 16px;
+  box-shadow: none;
 }
 
 .statistics {
   display: flex;
   justify-content: space-between;
-  margin: 16px;
+  // margin: 16px;
 
 }
 

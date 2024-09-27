@@ -16,10 +16,12 @@ interface UseApiArgs {
   url: string;
   data?: any;
   headers?: AxiosRequestHeaders;
+  withAuth?: boolean;
 }
 
 // Define the shape of the callApi parameters
 interface CallApiArgs<T> {
+  data?: any;
   onCompleted?: (data: T) => void;
   onError?: (error: string) => void;
 }
@@ -33,13 +35,13 @@ interface ApiResponse<T> {
 }
 
 // Custom Hook
-const useApi = <T = any>({ method, url, data = null, headers = {} as AxiosRequestHeaders }: UseApiArgs): ApiResponse<T> => {
+const useApi = <T = any>({ method, url, headers = {} as AxiosRequestHeaders, withAuth = true }: UseApiArgs): ApiResponse<T> => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [response, setResponse] = useState<T | null>(null);
 
   const callApi = useCallback(
-    async ({ onCompleted, onError }: CallApiArgs<T> = {}) => {
+    async ({ onCompleted, onError, data }: CallApiArgs<T> = {}) => {
       setLoading(true);
       setError(null); // Reset error before a new request
       setResponse(null); // Reset response before a new request
@@ -52,6 +54,9 @@ const useApi = <T = any>({ method, url, data = null, headers = {} as AxiosReques
           data: method === HttpMethod.POST ? data : null, // Only include data for POST-like methods
           params: method === HttpMethod.GET ? data : null, // For GET, send data as query params
         };
+
+        // headers['Content-Type'] = 'application/json'; // Set the default content type to JSON
+        withAuth && (headers['Authorization'] = `Bearer ${localStorage.getItem('token')}`); // Set the Authorization header
 
         const result = await axios(config);
         setResponse(result.data); // Set the response data from API
@@ -70,7 +75,7 @@ const useApi = <T = any>({ method, url, data = null, headers = {} as AxiosReques
         setLoading(false); // Always stop loading after request completes
       }
     },
-    [method, url, data, headers]
+    [method, url, headers]
   );
 
   return { callApi, loading, error, response };
