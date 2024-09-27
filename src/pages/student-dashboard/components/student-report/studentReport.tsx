@@ -112,36 +112,38 @@ const StudentReport = () => {
         <Paper>
           <div className={styles.skillHeader}>
             <h3>Student Details</h3>
-            <div>
+            <div className={styles.details}>
               <strong>Name: </strong>
               {getAssessmentsByIdResponse?.studentAssessments[0]?.user?.name ||
                 'N/A'}
             </div>
-            <div>
+            <div className={styles.details}>
+              <strong>Grade: </strong>
+              {getAssessmentsByIdResponse?.studentAssessments[0]?.assessment.grade?.name ||
+                'N/A'}
+            </div>
+            <div className={styles.details}>
               <strong>Email: </strong>
               {getAssessmentsByIdResponse?.studentAssessments[0]?.user?.email ||
                 'N/A'}
             </div>
-            <div>
+            <div className={styles.details}>
               <strong>Phone: </strong>
               {getAssessmentsByIdResponse?.studentAssessments[0]?.user?.phone ||
                 'N/A'}
             </div>
+            <div className={styles.details}>
+              <strong>Create date: </strong>
+              { moment().format('DD-MM-YYYY')}
+            </div>
+            <div className={styles.details}>
+              <strong>Role no: </strong>
+              {getAssessmentsByIdResponse?.studentAssessments[0]?.user?.rollNumber ||
+                'N/A'}
+            </div>
+
           </div>
         </Paper>
-
-        {/* <Paper>
-          <div className={styles.skillHeader}>
-            <h3>21st-Century Skills Evaluation</h3>
-            <ul>
-              {getReportResponse && Object.entries(getReportResponse["21st-Century Skills Evaluation"])?.map(([key, value], index) => (
-                <li key={index}>
-                  <strong>{key}:</strong> {value as string}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Paper> */}
 
         <Paper>
           <div className={styles.skillHeader}>
@@ -211,7 +213,7 @@ const StudentReport = () => {
       </div>
 
       <div className={styles.assessmentList}>
-        <h3 className={styles.assesmentHeader}>Performance Summary</h3>
+        <h2 className={styles.assesmentHeader}>Performance Summary</h2>
         <TableContainer
           component={Paper}
           style={{
