@@ -3,6 +3,8 @@ import { Card, CardContent, CardActions, IconButton, Menu, MenuItem, Button, Box
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom';
 
+import styles from './createAssessment.module.scss'
+
 const assessments = [
   { id: 1, name: 'Assessment 1', subject: 'Math', createdDate: '2023-10-01' },
   { id: 2, name: 'Assessment 2', subject: 'Science', createdDate: '2023-10-02' },
@@ -37,11 +39,9 @@ const Assessments: React.FC = () => {
   };
 
   return (
-    <Box padding={4}>
+    <Box padding={4} className={styles.assessmentWrapper}>
       <Box display="flex" justifyContent="flex-end" mb={2}>
-        <Button variant="contained" color="primary" onClick={handleCreateAssessment}>
-          Create Assessment
-        </Button>
+        <Button label="Create Assessment" onClick={handleCreateAssessment} />
       </Box>
       <Grid2 container spacing={2}>
         {assessments.map((assessment) => (

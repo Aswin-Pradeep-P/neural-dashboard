@@ -3,6 +3,8 @@ import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 
+import './styles.css';
+
 interface SearchInputProps {
   placeholder?: string;
   value: string;

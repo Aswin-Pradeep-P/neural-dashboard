@@ -29,9 +29,13 @@ const getColor = (name: string) => {
     return color;
 }
 
-const Avatar: FC<AvatarProps> = ({ children }) => {
+const Avatar: FC<AvatarProps> = ({ children, className }) => {
     return (
-        <MuiAvatar sx={{ bgcolor: getColor(children as string), fontSize: 18, width: 48, height: 48 }} >{getUserInitials(children as string)}</MuiAvatar>
+        <MuiAvatar
+            className={className}
+            sx={{ bgcolor: getColor(children as string), fontSize: 18, width: 48, height: 48 }}        >
+            {getUserInitials(children as string)}
+        </MuiAvatar>
     );
 }
 
