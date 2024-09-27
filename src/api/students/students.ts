@@ -11,3 +11,14 @@ export const useGetStudents = () => {
 
     return { getStudents, getStudentsError, getStudentsResponse, gettingStudents };
 };
+
+export const useGetStudent = (studentId: string) => {
+    const {
+        callApi: getStudent,
+        error: getStudentError,
+        loading: gettingStudent,
+        response: getStudentResponse
+    } = useApi({ method: HttpMethod.POST, url: `${apiUrl}/user/student/${studentId}` });
+
+    return { getStudent, getStudentError, getStudentResponse, gettingStudent };
+};

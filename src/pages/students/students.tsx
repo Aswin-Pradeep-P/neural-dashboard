@@ -24,11 +24,7 @@ const Students = () => {
   const { getStudents, getStudentsResponse } = useGetStudents();
 
   useEffect(() => {
-    getStudents({
-      onCompleted: (res) => {
-        console.log(res);
-      }
-    });
+    getStudents();
   }, []);
 
   const getStudentsList = () => getStudentsResponse
