@@ -5,12 +5,13 @@ import { StudentCardProps } from "../../types";
 
 import styles from './studentCard.module.scss';
 
-const StudentCard: FC<StudentCardProps> = ({ name, rollNumber }) => {
+const StudentCard: FC<StudentCardProps> = ({ email, name, rollNumber }) => {
     return (
         <div className={styles.studentCardContainer}>
             <Avatar>{name}</Avatar>
-            <span>{name}</span>
-            <span>{rollNumber}</span>
+            <span className={styles.name}>{name}</span>
+            <span className={styles.email}>{email}</span>
+            <span className={styles.roll}>{rollNumber}</span>
         </div>
     );
 }
