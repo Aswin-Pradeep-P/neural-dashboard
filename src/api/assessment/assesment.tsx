@@ -34,6 +34,17 @@ export const useCreateAssessment = () => {
   return { createAssessment, creatingAssessment, createAssessmentError, createAssessmentResponse };
 };
 
+export const useCreateStudentAssessment = () => {
+  const {
+    loading: creatingStudentAssessment,
+    callApi: createStudentAssessment,
+    error: createStudentAssessmentError,
+    response: createStudentAssessmentResponse,
+  } = useApi({ method: HttpMethod.POST, url: `${apiUrl}/student-assessment/create` });
+
+  return { createStudentAssessment, creatingStudentAssessment, createStudentAssessmentError, createStudentAssessmentResponse };
+};
+
 export const useGetAssessments = () => {
   const {
     loading: gettingAssessments,

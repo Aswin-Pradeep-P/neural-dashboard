@@ -2,7 +2,6 @@ import styles from './studentDashboard.module.scss';
 import { useState } from 'react';
 import StudentReport from './components/student-report/studentReport';
 import StudentProfile from '../student-profile/studentProfile';
-import Paper from '@mui/material/Paper';
 
 const StudentDashboard = () => {
   const [tab, setTab] = useState('Profile');

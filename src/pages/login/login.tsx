@@ -43,7 +43,7 @@ const Login = ({type}: {type: string}) => {
         getProfile({
           onCompleted: (res) => {
             setProfile(res);
-            navigate('/class');
+            navigate(res.type === 'teacher' ? '/class': '/dashboard');
           }
         });
       }

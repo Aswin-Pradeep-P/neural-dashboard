@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import RadioButtonGroup from '../radio/radio';
 import MultilineInput from '../multiline-input/multilineInput';
 import Button from '../button/button';
+import { useCreateStudentAssessment } from '../../api/assessment/assesment';
+import { useNavigate } from 'react-router-dom';
 
 type QuestionType = 'MCQ' | 'True-False' | 'Short-Answer' | 'Essay' | 'Assertion-Reason' | 'Case-Study';
 
 export interface Question {
+  id?: string;
   type: QuestionType;
   weightage: number;
   answer: string;
   options?: string[];
   text: string;
+  userAnswer?: string;
 }
 
 interface QuestionnaireProps {
@@ -18,18 +22,24 @@ interface QuestionnaireProps {
 }
 
 const Questionnaire: React.FC<QuestionnaireProps> = ({ questions }) => {
-  const [editableQuestions, setEditableQuestions] = useState<Question[]>(questions);
+  const [editableQuestions, setEditableQuestions] = useState<Question[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const { createStudentAssessment } = useCreateStudentAssessment();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setEditableQuestions(questions);
+  }, [questions]);
 
   const handleRadioChange = (value: string) => {
     const updatedQuestions = [...editableQuestions];
-    updatedQuestions[currentQuestionIndex].answer = value;
+    updatedQuestions[currentQuestionIndex].userAnswer = value;
     setEditableQuestions(updatedQuestions);
   };
 
   const handleInputChange = (value: string) => {
     const updatedQuestions = [...editableQuestions];
-    updatedQuestions[currentQuestionIndex].answer = value;
+    updatedQuestions[currentQuestionIndex].userAnswer = value;
     setEditableQuestions(updatedQuestions);
   };
 
@@ -46,15 +56,29 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ questions }) => {
   };
 
   const handleSubmit = () => {
-    console.log(editableQuestions);
+    createStudentAssessment({
+      data: {
+        questions: editableQuestions.map((question) => ({
+          id: question.id,
+          userAnswer: question.userAnswer,
+        })),
+      },
+      onCompleted: (data) => {
+        navigate('/assessments');
+      }
+    })
   };
 
   const currentQuestion = editableQuestions[currentQuestionIndex];
 
+  if(editableQuestions.length === 0) {
+    return null;
+  }
+
   return (
     <div>
       <div style={{ marginBottom: '20px' }}>
-        <p>{currentQuestion.text}</p>
+        <p>Question {currentQuestionIndex + 1}: {currentQuestion.text}</p>
         {currentQuestion.type === 'MCQ' || currentQuestion.type === 'True-False' || currentQuestion.type === 'Assertion-Reason' ? (
           <div>
             <RadioButtonGroup
@@ -64,14 +88,14 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ questions }) => {
                 label: option,
               }))}
               onChange={(event) => handleRadioChange(event.target.value)}
-              selectedValue={currentQuestion.answer}
+              selectedValue={currentQuestion.userAnswer as string}
             />
           </div>
         ) : (
           <div>
             <MultilineInput
               label=""
-              value={currentQuestion.answer}
+              value={currentQuestion.userAnswer as string}
               onChange={(event) => handleInputChange(event.target.value)}
             />
           </div>
@@ -82,7 +106,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ questions }) => {
         {currentQuestionIndex < editableQuestions.length - 1 ? (
           <Button label="Next" onClick={handleNext}>Next</Button>
         ) : (
-          <Button label="Next" onClick={handleSubmit}>Submit</Button>
+          <Button label="Submit" onClick={handleSubmit}>Submit</Button>
         )}
       </div>
     </div>

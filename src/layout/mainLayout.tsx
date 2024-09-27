@@ -25,7 +25,7 @@ function MainLayout() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/assessments" element={<Assessments />} />
           <Route path="/assessments/create" element={<CreateAssessment />} />
-          <Route path="/assessments/attempt" element={<TakeAssessment />} />
+          <Route path="/assessments/:id" element={<TakeAssessment />} />
           <Route path="/library" element={<Library />} />
           <Route path="/planner" element={<Planner />} />
           <Route path="/chat" element={<Chat />} />
