@@ -1,0 +1,13 @@
+.createAssessment {
+  display: flex;
+
+  .editSection{
+    flex: 1;
+    padding: 16px;
+  }
+
+  .viewSection{
+    flex: 1;
+    padding: 16px;
+  }
+}
