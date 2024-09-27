@@ -1,42 +1,38 @@
 import { Grid2, Paper } from '@mui/material';
-import { useState } from 'react';
-
+import { useEffect, useState } from 'react';
 import FilterListIcon from '@mui/icons-material/FilterList';
-import StudentCard from './components/student-card/studentCard';
+
 import SearchInput from '../../components/search-input/searchInput';
+import { useGetStudents } from '../../api/students/students';
+import StudentCard from './components/student-card/studentCard';
 
 import styles from './students.module.scss';
 import { Padding } from '@mui/icons-material';
 
-const studentData = [
-  { "name": "Alice Smith", "rollNumber": 101, "email": "alice.smith@example.com" },
-  { "name": "Bob Johnson", "rollNumber": 102, "email": "bob.johnson@example.com" },
-  { "name": "Charlie Williams", "rollNumber": 103, "email": "charlie.williams@example.com" },
-  { "name": "David Brown", "rollNumber": 104, "email": "david.brown@example.com" },
-  { "name": "Ella Jones", "rollNumber": 105, "email": "ella.jones@example.com" },
-  { "name": "Franklin Garcia", "rollNumber": 106, "email": "franklin.garcia@example.com" },
-  { "name": "Grace Miller", "rollNumber": 107, "email": "grace.miller@example.com" },
-  { "name": "Henry Davis", "rollNumber": 108, "email": "henry.davis@example.com" },
-  { "name": "Isla Rodriguez", "rollNumber": 109, "email": "isla.rodriguez@example.com" },
-  { "name": "Jack Martinez", "rollNumber": 110, "email": "jack.martinez@example.com" },
-  { "name": "Jack Martinez", "rollNumber": 110, "email": "jack.martinez@example.com" },
-  { "name": "Jack Martinez", "rollNumber": 110, "email": "jack.martinez@example.com" },
-];
+interface Student {
+  name: string;
+  email: string;
+  type: string;
+  phone: string;
+  id: string;
+  dob: string;
+}
 
 const Students = () => {
   const [searchString, setSearchString] = useState('');
 
-  // const handleSearch = debounce(
-  //   (queryString: string) => setSearchString(queryString),
-  //   1000
-  // );
+  const { getStudents, getStudentsResponse } = useGetStudents();
 
-  const handleSearchChange = (searchValue:string) => {
-    setSearchString(searchValue);
-    // handleSearch(searchValue);
-  };
+  useEffect(() => {
+    getStudents({
+      onCompleted: (res) => {
+        console.log(res);
+      }
+    });
+  }, []);
 
-  const getStudentsList = () => studentData.filter(({ name, email }) => name.toLowerCase().includes(searchString.toLowerCase())
+  const getStudentsList = () => getStudentsResponse
+    ?.filter(({ name, email }: Student) => name.toLowerCase().includes(searchString.toLowerCase())
     || email.toLowerCase().includes(searchString.toLowerCase()));
   
   return (
@@ -46,13 +42,13 @@ const Students = () => {
           <Paper className={styles.studentsHeader}><h1>Students</h1></Paper>
           <Paper className={styles.studentsSection}>
             <div className={styles.studentSearchFilterWrapper}>
-              <SearchInput onChange={(e) => handleSearchChange(e.target.value)} value={searchString}  />
+              <SearchInput onChange={(e) => setSearchString(e.target.value)} value={searchString}  />
               <div className={styles.studentFilter}><FilterListIcon /></div>
             </div>
             <Grid2 container={true} gap={4} justifyContent="space-between">
-              {getStudentsList().map(({ email, name, rollNumber }) => (
+              {getStudentsList()?.map(({ email, name }: Student, index: number) => (
                 <Grid2>
-                  <StudentCard email={email} name={name} rollNumber={rollNumber} />
+                  <StudentCard email={email} name={name} rollNumber={index+1} />
                 </Grid2>
               ))}
             </Grid2>

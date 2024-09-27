@@ -41,7 +41,7 @@ const StudentProfile = () => {
         <div className={styles.studentProfileContainer}>
             <div className={styles.studentProfileContent}>
                 <div className={styles.leftSection}>
-                    <Paper className={styles.personalInfoWrapper}>
+                    <Paper className={styles.wrapper}>
                         <span>Personal Info</span>
                         <div className={styles.row}>
                             <div className={styles.infoWrapper}>
@@ -74,7 +74,7 @@ const StudentProfile = () => {
                             </div>
                         </div>
                     </Paper>
-                    <Paper className={styles.contactInfoWrapper}>
+                    <Paper className={styles.wrapper}>
                         <span>Contact Info</span>
                         <div className={styles.row}>
                             <div className={styles.infoWrapper}>

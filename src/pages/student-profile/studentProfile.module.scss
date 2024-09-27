@@ -12,30 +12,25 @@
             gap: 24px;
             flex: 3;
 
-            .personalInfoWrapper {
+            .wrapper {
                 display: flex;
                 flex-direction: column;
                 gap: 8px;
                 padding: 16px;
-            }
+                border-radius: 16px;
 
-            .contactInfoWrapper {
-                display: flex;
-                flex-direction: column;
-                gap: 8px;
-                padding: 16px;
-            }
-
-            .row {
-                display: flex;
-                gap: 16px;
-
-                .infoWrapper {
+                .row {
                     display: flex;
-                    flex-direction: column;
-                    flex: 1;
+                    gap: 16px;
+
+                    .infoWrapper {
+                        display: flex;
+                        flex-direction: column;
+                        flex: 1;
+                    }
                 }
             }
+
         }
 
         .rightSection {
@@ -43,7 +38,7 @@
             flex-direction: column;
             flex: 1;
             gap: 24px;
-            border: 1px solid $border;
+            border-radius: 16px;
             background-color: #fff;
             padding: 16px;
 
