@@ -1,7 +1,10 @@
 import React from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton, Menu, MenuItem, Paper, Button, Box } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton, Menu, MenuItem, Paper, Box } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom';
+
+import Button from '../../components/button/button';
+import styles from './createAssessment.module.scss'
 
 const assessments = [
   { id: 1, name: 'Assessment 1', subject: 'Math', createdDate: '2023-10-01' },
@@ -37,11 +40,9 @@ const Assessments: React.FC = () => {
   };
 
   return (
-    <Box padding={4}>
+    <Box padding={4} className={styles.assessmentWrapper}>
       <Box display="flex" justifyContent="flex-end" mb={2}>
-        <Button variant="contained" color="primary" onClick={handleCreateAssessment}>
-          Create Assessment
-        </Button>
+        <Button label="Create Assessment" onClick={handleCreateAssessment} />
       </Box>
       <TableContainer component={Paper}>
         <Table>
