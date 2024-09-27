@@ -2,6 +2,9 @@ import React, { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, Grid2 } from '@mui/material';
 
+import Button from '../../components/button/button';
+
+import styles from './library.module.scss';
 interface FileData {
   name: string;
   subject: string;
@@ -29,20 +32,17 @@ const Library: React.FC = () => {
     // Upload to backend
   }, []);
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, open } = useDropzone({ onDrop });
 
   return (
-    <Box padding={4}>
-      <Grid2 justifyContent="center" container={true}>
-        <div
-          {...getRootProps()}
-          style={{ width: '400px', border: '2px dashed #25BF8B', padding: '20px', textAlign: 'center' }}
-        >
+    <Box padding={4} className={styles.libraryWrapper}>
+      <Grid2 justifyContent="flex-end" container={true}>
+        <div {...getRootProps()}>
           <input {...getInputProps()} />
-          <p>Drag 'n' drop some files here, or click to select files</p>
+          <Button label="Upload to library" onClick={open} />
         </div>
       </Grid2>
-      <TableContainer component={Paper} style={{ marginTop: '20px' }}>
+      <TableContainer component={Paper} style={{ marginTop: '20px', borderRadius: '12px' }}>
         <Table>
           <TableHead>
             <TableRow>
