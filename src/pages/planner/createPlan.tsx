@@ -23,7 +23,7 @@ const lessonPlanMapping: any = {
   assessment_methods: 'Assessment methods',
 };
 
-const Planner: React.FC = () => {
+const CreatePlan: React.FC = () => {
   const [plan, setPlan] = useState<string>('');
   const [message, setMessage] = useState<string>('');
   const [grade, setGrade] = useState<any>(null);
@@ -216,4 +216,4 @@ const Planner: React.FC = () => {
   );
 };
 
-export default Planner;
+export default CreatePlan;

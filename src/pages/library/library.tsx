@@ -58,7 +58,7 @@ const Library: React.FC = () => {
   const { getRootProps, getInputProps, open } = useDropzone({ onDrop });
 
   return (
-    <Box padding={4} className={styles.libraryWrapper}>
+    <Box className={styles.libraryWrapper}>
       <Grid2 justifyContent="space-between" alignItems="center" marginBottom="0" container={true}>
         <h1 style={{ marginBottom: '0' }}>Library</h1>
         <div {...getRootProps()}>
