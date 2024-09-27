@@ -1,4 +1,5 @@
 import { Grid2, Paper } from '@mui/material';
+import { useState } from 'react';
 
 import FilterListIcon from '@mui/icons-material/FilterList';
 import StudentCard from './components/student-card/studentCard';
@@ -23,6 +24,21 @@ const studentData = [
 ];
 
 const Students = () => {
+  const [searchString, setSearchString] = useState('');
+
+  // const handleSearch = debounce(
+  //   (queryString: string) => setSearchString(queryString),
+  //   1000
+  // );
+
+  const handleSearchChange = (searchValue:string) => {
+    setSearchString(searchValue);
+    // handleSearch(searchValue);
+  };
+
+  const getStudentsList = () => studentData.filter(({ name, email }) => name.toLowerCase().includes(searchString.toLowerCase())
+    || email.toLowerCase().includes(searchString.toLowerCase()));
+  
   return (
     <div className={styles.studentsContainer}>
       <div className={styles.studentsWrapper}>
@@ -30,11 +46,11 @@ const Students = () => {
           <Paper className={styles.studentsHeader}><h1>Students</h1></Paper>
           <Paper className={styles.studentsSection}>
             <div className={styles.studentSearchFilterWrapper}>
-              <SearchInput onChange={() => { }} value=''  />
+              <SearchInput onChange={(e) => handleSearchChange(e.target.value)} value={searchString}  />
               <div className={styles.studentFilter}><FilterListIcon /></div>
             </div>
             <Grid2 container={true} gap={4} justifyContent="space-between">
-              {studentData.map(({ email, name, rollNumber }) => (
+              {getStudentsList().map(({ email, name, rollNumber }) => (
                 <Grid2>
                   <StudentCard email={email} name={name} rollNumber={rollNumber} />
                 </Grid2>
