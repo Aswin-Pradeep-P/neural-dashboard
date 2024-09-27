@@ -3,7 +3,7 @@ import { PieChart } from '@mui/x-charts/PieChart';
 import { BarChart } from '@mui/x-charts/BarChart';
 
 import styles from './dashboard.module.scss';
-import { assessmentReport, dashboardCard, leaderData, moduleReport } from './constants';
+import { assessmentReport, dashboardCard, leaderData } from './constants';
 import DashboardCard from '../../components/dashboardCard/dashboardCard';
 import LeaderBoard from '../../components/leaderBoard/leaderBoard';
 import Header from '../../components/header/header';
@@ -36,10 +36,22 @@ const Dashboard = () => {
           <Paper className={styles.charts}>
             <h1>Reports</h1>
             <div className={styles.statistics}>
-              <Paper className={styles.assessmentReport}>
+                <Paper className={styles.assessmentReport}>
                 <h3>Assessment</h3>
-                <PieChart colors={['#25BF8B', '#D3EEE3']} series={assessmentReport} width={330} height={200} />
-              </Paper>
+                <PieChart 
+                  colors={['#25BF8B', '#D3EEE3']} 
+                  series={assessmentReport} 
+                  height={300} 
+                  margin={{ top: 50, bottom: 10, left: 10, right:10 }}
+                  slotProps={{
+                    legend: {
+                      direction: 'row',
+                      position: { vertical: 'top', horizontal: 'middle' },
+                      padding: 0
+                    },
+                  }}
+                />
+                </Paper>
               <Paper className={styles.modulesReport}>
                 <h3>Module</h3>
                 <BarChart
