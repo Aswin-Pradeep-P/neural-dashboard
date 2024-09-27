@@ -1,156 +1,3 @@
-// import Paper from '@mui/material/Paper';
-// import styles from './studentReport.module.scss';
-// import TableContainer from '@mui/material/TableContainer';
-// import {
-//   Table,
-//   TableBody,
-//   TableCell,
-//   TableHead,
-//   TableRow,
-// } from '@mui/material';
-// import { useGetAssessmentsById, useGetReport } from '../../../../api/assessment/assesment';
-// import { useEffect } from 'react';
-// import { useParams } from 'react-router-dom';
-// import moment from 'moment';
-// const StudentReport = () => {
-//   const { studentId } = useParams();
-//   const {
-//     getAssessmentsById,
-//     getAssessmentsByIdResponse = { assessments: [] },
-//   } = useGetAssessmentsById('1a2330b0-6173-4ff4-88bc-8ad3c0951a80');
-//   const {
-//     getReport,
-//     getReportResponse = { assessments: [] },
-//   } = useGetReport();
-//   interface AssessmentData {
-//     name: string;
-//     subject: string;
-//     score: string;
-//     attendedOn: string;
-//   }
-
-//   useEffect(() => {
-//     getAssessmentsById({
-//       onCompleted: (data) => {
-//         console.log(data);
-//         console.log('data', getAssessmentsByIdResponse.studentAssessments);
-//       },
-//     });
-
-//     getReport({
-//       data: {
-//         user_id: '1a2330b0-6173-4ff4-88bc-8ad3c0951a80'
-//       },
-//       onCompleted: (data) => {
-//         console.log("data 123",data); 
-//       },
-//     });
-//   }, []);
-
-//   return (
-//     <Paper className={styles.report}>
-//       <h1>Report</h1>
-//       <div className={styles.skillList}>
-//         <Paper>
-//           <div className={styles.skillHeader}>
-//             <h3>Student Details</h3>
-//             <div>
-//               <strong>Name: </strong>
-//               {getAssessmentsByIdResponse?.studentAssessments[0]?.user?.name ||
-//                 'N/A'}
-//             </div>
-//             <div>
-//               <strong>Email: </strong>
-//               {getAssessmentsByIdResponse?.studentAssessments[0]?.user?.email ||
-//                 'N/A'}
-//             </div>
-//             <div>
-//               <strong>Phone: </strong>
-//               {getAssessmentsByIdResponse?.studentAssessments[0]?.user?.phone ||
-//                 'N/A'}
-//             </div>
-//           </div>
-//         </Paper>
-//         <Paper>
-//           <div className={styles.skillHeader}>
-//             <h3>Skill mastery and development</h3>
-//           </div>
-//         </Paper>
-//         <Paper>
-//           <div className={styles.skillHeader}>
-//             <h3>Strength and weekenes</h3>
-//           </div>
-//         </Paper>
-//       </div>
-//       <div className={styles.assessmentList}>
-//         <h3 className={styles.assesmentHeader}>Performance Summary</h3>
-//         <TableContainer
-//           component={Paper}
-//           style={{
-//             marginTop: '20px',
-//             borderRadius: '12px',
-//             height: '200px',
-//             overflowY: 'scroll',
-//           }}
-//         >
-//           <Table>
-//             <TableHead>
-//               <TableRow>
-//                 <TableCell>Name</TableCell>
-//                 <TableCell>Subject</TableCell>
-//                 <TableCell>Attended on</TableCell>
-//                 <TableCell>Score</TableCell>
-//                 <TableCell>Average score</TableCell>
-//               </TableRow>
-//             </TableHead>
-//             <TableBody>
-//               {getAssessmentsByIdResponse?.studentAssessments?.map(
-//                 ({ assessment, score, updatedAt }: any, index: any) => (
-//                   <TableRow
-//                     key={index}
-//                     style={
-//                       index % 2 === 0
-//                         ? { backgroundColor: 'rgba(211, 238, 227, 0.5)' }
-//                         : {}
-//                     }
-//                   >
-//                     <TableCell>{assessment.name}</TableCell>
-//                     <TableCell>{assessment?.subject?.name}</TableCell>
-//                     <TableCell>
-//                       {moment(updatedAt).format('DD-MM-YYYY')}
-//                     </TableCell>
-//                     <TableCell>{score}</TableCell>
-//                     <TableCell>{assessment.avgScore}</TableCell>
-//                   </TableRow>
-//                 )
-//               )}
-//             </TableBody>
-//           </Table>
-//         </TableContainer>
-//       </div>
-//       <div className={styles.recomendations}>
-//         <h2>Personal Recomendations</h2>
-//         <ul>
-//           <li>
-//             Set clear goals: Focus on areas where you can improve and work
-//             towards specific, achievable targets.
-//           </li>
-//           <li>
-//             Develop study habits: Establish a consistent study routine to
-//             reinforce learning.
-//           </li>
-//           <li>
-//             Seek understanding: Don’t just memorize—aim to understand concepts
-//             deeply.
-//           </li>
-//         </ul>
-//       </div>
-//       <div></div>
-//     </Paper>
-//   );
-// };
-
-// export default StudentReport;
 
 import Paper from '@mui/material/Paper';
 import styles from './studentReport.module.scss';
@@ -166,16 +13,19 @@ import { useGetAssessmentsById, useGetReport } from '../../../../api/assessment/
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
+import CircularLoader from '../../../../components/circular-loader/circularLoader';
 
 const StudentReport = () => {
   const { studentId } = useParams();
   const {
     getAssessmentsById,
+    gettingAssessments,
     getAssessmentsByIdResponse = { assessments: [] },
-  } = useGetAssessmentsById('1a2330b0-6173-4ff4-88bc-8ad3c0951a80');
+  } = useGetAssessmentsById(studentId as string);
   
   const {
     getReport,
+    gettingReport,
     getReportResponse = {
       "21st-Century Skills Evaluation": {},
       "Personalized Recommendations": {},
@@ -188,6 +38,8 @@ const StudentReport = () => {
     },
   } = useGetReport();
 
+  const loading = gettingAssessments || gettingReport;
+
   useEffect(() => {
     getAssessmentsById({
       onCompleted: (data) => {
@@ -197,7 +49,7 @@ const StudentReport = () => {
 
     getReport({
       data: {
-        user_id: '1a2330b0-6173-4ff4-88bc-8ad3c0951a80'
+        user_id: studentId
       },
       onCompleted: (data) => {
         console.log("Report data", data);
@@ -207,6 +59,7 @@ const StudentReport = () => {
 
   return (
     <Paper className={styles.report}>
+       {loading && <CircularLoader />}
       <h1>Report</h1>
       <div className={styles.skillList}>
         <Paper>
