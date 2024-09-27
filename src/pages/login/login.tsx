@@ -42,8 +42,8 @@ const Login = ({type}: {type: string}) => {
         localStorage.setItem('token', data.token);
         getProfile({
           onCompleted: (res) => {
-            setProfile(res.data);
-            navigate('/dashboard');
+            setProfile(res);
+            navigate('/class');
           }
         });
       }
