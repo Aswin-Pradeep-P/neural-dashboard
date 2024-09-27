@@ -77,16 +77,17 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({ editableQuestions, setE
             {gettingAnswer && <CircularLoader />}
             {editableQuestions.map((question, qIndex) => (
               <div key={qIndex} style={{ marginBottom: '20px' }}>
-                <div style={{ marginBottom: '10px' }}>
+                <div className={styles.questionDiv}>
                   <strong>Q{qIndex + 1}:</strong>
+                  <FormInput
+                    value={question.text}
+                    onChange={(e) => handleTextChange(qIndex, e.target.value)}
+                    className={styles.formInput}
+                    multiline={true}
+                    rows={2}
+                  />
                 </div>
-                <FormInput
-                  value={question.text}
-                  onChange={(e) => handleTextChange(qIndex, e.target.value)}
-                  className={styles.formInput}
-                  multiline={true}
-                  rows={2}
-                />
+                
                 {(question.type === 'MCQ' ||
                   question.type === 'True-False' ||
                   question.type === 'Assertion-Reason') && (
@@ -97,7 +98,8 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({ editableQuestions, setE
                       </strong>
                     </div>
                     {question.options?.map((option, oIndex) => (
-                      <li key={oIndex}>
+                      <li key={oIndex} className={styles.questionList}>
+                        <span className={styles.order}>{`${oIndex + 1}.`}</span>
                         <FormInput
                           type="text"
                           value={option}
@@ -120,19 +122,21 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({ editableQuestions, setE
                       rows={4}
                       placeholder="Expected Answer"
                     />
-                    <Button
-                      label="Generate Answer"
-                      onClick={() => handleGenerateAnswer(qIndex)}
-                      variant="contained"
-                      style={{ marginTop: '10px' }}
-                    >
-                      Generate Answer
-                    </Button>
+                    
+                      <Button
+                        label="Generate Answer"
+                        onClick={() => handleGenerateAnswer(qIndex)}
+                        variant="contained"
+                        style={{ marginTop: '10px' }}
+                      >
+                        Generate Answer
+                      </Button>
                   </div>
                 )}
               </div>
             ))}
           </div>
+          <div className={styles.saveAnswer}>
           <Button
             label="Save"
             onClick={() => {
@@ -160,6 +164,7 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({ editableQuestions, setE
           >
             Save
           </Button>
+          </div>
         </>
       ) : (
         <div className={styles.noQuestions}>No questions available.</div>
