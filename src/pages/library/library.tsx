@@ -46,13 +46,13 @@ const Library: React.FC = () => {
   return (
     <Box padding={4} className={styles.libraryWrapper}>
       <Grid2 justifyContent="space-between" alignItems="center" marginBottom="0" container={true}>
-        <h1>Library</h1>
+        <h1 style={{ marginBottom: '0' }}>Library</h1>
         <div {...getRootProps()}>
           <input {...getInputProps()} />
           <Button label="Upload to library" onClick={open} />
         </div>
       </Grid2>
-      <TableContainer component={Paper} style={{ marginTop: '20px', borderRadius: '12px' }}>
+      <TableContainer component={Paper} style={{ marginTop: '20px', borderRadius: '12px', boxShadow: '0 0 30px -24px rgba(0, 0, 0, 0.6)' }}>
         <Table>
           <TableHead>
             <TableRow>
@@ -64,7 +64,7 @@ const Library: React.FC = () => {
           </TableHead>
           <TableBody>
             {files.map((file, index) => (
-              <TableRow key={index} style={index % 2 === 0 ? { backgroundColor: 'rgba(211, 238, 227, 0.5)' } : {}}>
+              <TableRow key={index} style={index % 2 === 0 ? { backgroundColor: 'rgba(211, 238, 227, 0.3)' } : {}}>
                 <TableCell>{file.name}</TableCell>
                 <TableCell>{file.subject}</TableCell>
                 <TableCell>{file.uploadedBy}</TableCell>
