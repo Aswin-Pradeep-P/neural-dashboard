@@ -17,6 +17,8 @@
 td{
   line-height: 1.8 !important;
   font-size: 16px !important;
+  padding: 16px 24px !important;
+  border: none !important;
 }
 
 tbody:last-child tr:last-child td{
@@ -25,5 +27,7 @@ tbody:last-child tr:last-child td{
 
 th{
   font-weight: 700 !important;
-  font-size: 16px !important;
+  font-size: 18px !important;
+  padding: 24px 24px 20px 24px !important;
+  border: none !important;
 }
