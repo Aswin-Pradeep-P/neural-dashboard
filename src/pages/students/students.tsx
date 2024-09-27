@@ -18,6 +18,8 @@ const studentData = [
   { "name": "Henry Davis", "rollNumber": 108, "email": "henry.davis@example.com" },
   { "name": "Isla Rodriguez", "rollNumber": 109, "email": "isla.rodriguez@example.com" },
   { "name": "Jack Martinez", "rollNumber": 110, "email": "jack.martinez@example.com" },
+  { "name": "Jack Martinez", "rollNumber": 110, "email": "jack.martinez@example.com" },
+  { "name": "Jack Martinez", "rollNumber": 110, "email": "jack.martinez@example.com" },
 ];
 
 const Students = () => {
