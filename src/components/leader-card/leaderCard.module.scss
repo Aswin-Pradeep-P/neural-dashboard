@@ -1,20 +1,38 @@
 .rank{
-    height: 25px;
-    display: flex;
-    width: 25px;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
+    font-weight: 700;
+    font-size: 14px;
 }
 .nameWrapper{
     display: flex;
     flex-direction: column;
     margin-right: 12px;
+    font-size: 14px;
 }
 .leaderCard{
     display: flex;
     width: 100%;
-    justify-content: space-between;
-    padding: 16px;
+    // justify-content: space-between;
+    // padding: 16px;
     align-items: center;
+    box-shadow: none !important;
+    border-bottom: 1px solid #c9e3d8;
+    border-radius: 0 !important;
+    padding: 0 16px 10px;
+}
+
+.leaderAvatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-right: 10px;
+    opacity: 0.5;
+
+    img {
+        width: 100%;
+        border-radius: 50%;
+    }
 }

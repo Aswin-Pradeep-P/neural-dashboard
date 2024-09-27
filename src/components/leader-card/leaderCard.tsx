@@ -8,6 +8,7 @@ export interface LeaderCardProps {
   name: string;
   rank: number;
   percentage: string;
+  gender: string;
 }
 
 export const getColor = (id: string) => {
@@ -27,18 +28,21 @@ export const getColor = (id: string) => {
     return color;
   };
 
-const LeaderCard: FC<LeaderCardProps> = ({ name, rank, percentage }) => {
+const LeaderCard: FC<LeaderCardProps> = ({ name, rank, percentage, gender }) => {
 
   return (
     <Paper className={styles.leaderCard}>
-      <Avatar>{name}</Avatar>
+      <div className={styles.rank}>
+        {rank}
+      </div>
+      <div className={styles.leaderAvatar}>
+        <img src={`./avatars/${gender}${Math.floor(Math.random() * 3) + 1}.svg`} />
+      </div>
       <div className={styles.nameWrapper}>
         <span>{name}</span>
         <span>{percentage}</span>
       </div>
-      <div className={styles.rank} style={{ backgroundColor: getColor(name) }}>
-        {rank}
-      </div>
+
     </Paper>
   );
 };

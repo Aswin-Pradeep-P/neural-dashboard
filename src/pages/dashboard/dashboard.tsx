@@ -8,12 +8,13 @@ import DashboardCard from '../../components/dashboardCard/dashboardCard';
 import LeaderBoard from '../../components/leaderBoard/leaderBoard';
 import Header from '../../components/header/header';
 
-const uData = [4000, 3000, 2000];
-const pData = [2400, 1398, 9800];
+const pData = [77, 92, 68, 89, 85];
 const xLabels = [
-  'Page A',
-  'Page B',
-  'Page C'
+  '2020',
+  '2021',
+  '2022',
+  '2023',
+  '2024'
 ];
 
 const Dashboard = () => {
@@ -39,7 +40,7 @@ const Dashboard = () => {
                 <Paper className={styles.assessmentReport}>
                 <h3>Assessment</h3>
                 <PieChart 
-                  colors={['#25BF8B', '#D3EEE3']} 
+                  colors={['#D3EEE3', '#25BF8B']} 
                   series={assessmentReport} 
                   height={300} 
                   margin={{ top: 50, bottom: 10, left: 10, right:10 }}
@@ -55,11 +56,11 @@ const Dashboard = () => {
               <Paper className={styles.modulesReport}>
                 <h3>Module</h3>
                 <BarChart
+                  colors={['#25BF8B']} 
                   width={500}
                   height={300}
                   series={[
-                    { data: pData, label: 'pv', id: 'pvId' },
-                    { data: uData, label: 'uv', id: 'uvId' },
+                    { data: pData, label: 'Average Score', id: 'pvId' },
                   ]}
                   xAxis={[{ data: xLabels, scaleType: 'band' }]}
                 />
