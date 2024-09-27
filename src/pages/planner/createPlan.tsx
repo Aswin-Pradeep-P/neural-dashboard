@@ -13,8 +13,6 @@ import { profileAtom } from '../../atoms/profile';
 import { subjectId } from '../../constants';
 import { useNavigate } from 'react-router-dom';
 
-import styles from './createPlan.module.scss'
-
 const lessonPlanMapping: any = {
   expected_learning_outcomes: 'Expected learning outcomes',
   expected_skill_development: 'Expected skill development',
@@ -148,9 +146,6 @@ const CreatePlan: React.FC = () => {
             placeholder="Type your plan here"
             style={{ width: '100%', marginTop: '10px' }}
             multiline={true}
-            classes={{
-              root: styles.root
-            }}
             InputProps={{style: {height: 'unset'}}}
             rows={3}
           />
