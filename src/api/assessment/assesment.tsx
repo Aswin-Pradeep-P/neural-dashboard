@@ -33,3 +33,14 @@ export const useCreateAssessment = () => {
 
   return { createAssessment, creatingAssessment, createAssessmentError, createAssessmentResponse };
 };
+
+export const useGetAssessments = () => {
+  const {
+    loading: gettingAssessments,
+    callApi: getAssessments,
+    error: getAssessmentsError,
+    response: getAssessmentsResponse,
+  } = useApi({ method: HttpMethod.POST, url: `${apiUrl}/assessment/list` });
+
+  return { getAssessments, gettingAssessments, getAssessmentsError, getAssessmentsResponse };
+};
