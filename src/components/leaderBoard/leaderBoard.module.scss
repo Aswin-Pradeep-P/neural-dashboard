@@ -1,8 +1,11 @@
 .leaderBoardContainer {
     height: 100%;
     box-sizing: border-box;
-    padding: 32px 24px;
-    border-radius: 40px !important;
+    padding: 32px;
+    border-top-left-radius: 32px !important;
+    border-top-right-radius: 32px !important;
+    box-shadow: none !important;
+    width: 298px;
 
     .header {
         display: flex;
@@ -15,7 +18,7 @@
     }
 
     .leaderListWrapper {
-        height: calc(100vh - 540px);
+        height: calc(100vh - 480px);
         overflow-y: scroll;
         display: flex;
         flex-direction: column;

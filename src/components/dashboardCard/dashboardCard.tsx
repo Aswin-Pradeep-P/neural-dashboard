@@ -14,21 +14,20 @@ const DashboardCard: FC<DashboardCardProps> = ({ count, title }) => {
   function getIconByText(text: string) {
     switch (text) {
       case 'No of students':
-        return <PeopleIcon />;
+        return './students.jpg';
       case 'Total assessments':
-        return <QuizIcon />;
+        return './assessments.jpg';
       case 'Assessment completed':
-        return <ChecklistIcon />;
+        return './completed.jpg';
       case 'Average Score':
-        return <ScoreIcon />;
+        return './score.jpg';
       default:
         return null;
     }
   }
   return (
     <div className={styles.cardWrapper}>
-      <div className={styles.content}>
-        {getIconByText(title)}
+      <div className={styles.content} style={{ backgroundImage: `url(${getIconByText(title)})` }}>
         <div className={styles.header}>
           <div className={styles.text}>{title}</div>
           <div className={styles.count}>{count}</div>
