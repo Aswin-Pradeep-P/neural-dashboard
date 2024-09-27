@@ -1,0 +1,12 @@
+.questions{
+  height: calc(100vh - 150px);
+  overflow-y: auto;
+  margin-bottom: 16px;
+}
+
+.noQuestions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 108px);
+}

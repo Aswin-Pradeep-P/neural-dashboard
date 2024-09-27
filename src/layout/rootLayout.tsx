@@ -5,7 +5,8 @@ import MainLayout from './mainLayout';
 const RootLayout = () => {
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
+      <Route path="/login" element={<Login type="login" />} />
+      <Route path="/signup" element={<Login type="signup" />} />
       <Route path="*" element={<MainLayout />} />
     </Routes>
   );

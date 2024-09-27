@@ -1,0 +1,17 @@
+.formInput{
+  width: 100% !important;
+  margin-bottom: 10px;
+}
+
+.questions{
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+  margin-bottom: 16px;
+}
+
+.noQuestions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 108px);
+}

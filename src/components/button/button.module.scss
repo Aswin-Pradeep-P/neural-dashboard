@@ -1,0 +1,13 @@
+.button{
+    background: #25BF8B !important;
+    color: white !important;
+    border: none !important;
+    min-width: 120px !important;
+    border-radius: 10px !important;
+    font-size: 18px !important;
+    padding: 10px !important;
+    text-transform: capitalize !important;
+    &:hover{
+        background: #209a71 !important;
+    }
+}

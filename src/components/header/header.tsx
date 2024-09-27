@@ -1,15 +1,16 @@
 import NotificationsIcon from '@mui/icons-material/Notifications';
 
-import './styles.scss';
-import { Badge } from '@mui/material';
+import styles from './header.module.scss';
+import { Badge, Paper } from '@mui/material';
+import Avatar from '../avatar/avatar';
 
 const Header = () => {
   return (
-    <div className="header">
-      <span> Hello, Saranya!</span>
-      <Badge badgeContent={99}><NotificationsIcon /></Badge>
-    </div>
-  )
-}
+    <Paper className={styles.header}>
+      <Avatar>Martin maecus</Avatar>
+      <span> Hello, Martin</span>
+    </Paper>
+  );
+};
 
-export default Header
+export default Header;
