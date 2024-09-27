@@ -1,0 +1,33 @@
+body{
+  margin: 0px;
+  padding: 0px;
+}
+
+.App{
+  display: flex;
+}
+
+.navbar {
+  ul {
+    display: flex;
+    background: lightblue;
+    margin: 0px;
+    padding: 16px;
+  }
+}
+
+.navbar ul li{
+  margin-right: 32px;
+}
+
+.main-layout{
+  height: calc(100vh - 64px);
+}
+
+.flexCenter{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
