@@ -13,7 +13,7 @@ export interface LeaderBoardPrps {
 const LeaderBoard: FC<LeaderBoardPrps> = ({ leaderList }) => {
   const firstLeader = leaderList[0];
   const remainingLeaders = leaderList.slice(1);
-  
+  console.log(remainingLeaders);
   return (
     <Paper className={styles.leaderBoardContainer}>
       <div className={styles.header}>
@@ -21,10 +21,12 @@ const LeaderBoard: FC<LeaderBoardPrps> = ({ leaderList }) => {
         {/* <EmojiEventsIcon fontSize="large" /> */}
       </div>
       <Paper className={styles.topper}>
-      <Avatar >{firstLeader.name}</Avatar>
-      <div className={styles.rankHolder}>{firstLeader.rank}</div>
-      <div className={styles.rankHolder}>{firstLeader.name}</div>
-      <div className={styles.rankHolder}>{firstLeader.percentage}</div>
+        <div className={styles.leaderAvatar}>
+          <img src={`./avatars/${firstLeader.gender}${Math.floor(Math.random() * 3) + 1}.svg`} />
+        </div>
+        {/* <div className={styles.rankHolder}>{firstLeader.rank}</div> */}
+        <div className={styles.rankHolder}>{firstLeader.name}</div>
+        <div className={styles.rankHolder}>{firstLeader.percentage}</div>
       </Paper>
       <div className={styles.leaderListWrapper}>
         {remainingLeaders.map((leader) => (
@@ -34,6 +36,7 @@ const LeaderBoard: FC<LeaderBoardPrps> = ({ leaderList }) => {
             name={leader.name}
             percentage={leader.percentage}
             rank={leader.rank}
+            gender={leader.gender}
           />
         ))}
       </div>
