@@ -13,9 +13,11 @@
 
     .studentsContent {
         background: none;
+        box-shadow: none;
 
         .studentsHeader {
             background: none;
+            box-shadow: none;
         }
 
         .studentFilter {
@@ -25,6 +27,7 @@
 
         .studentsSection {
             background: none;
+            box-shadow: none;
 
             .studentSearchFilterWrapper {
                 display: flex;
