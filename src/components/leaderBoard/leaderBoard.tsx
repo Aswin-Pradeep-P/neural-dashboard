@@ -13,12 +13,12 @@ export interface LeaderBoardPrps {
 const LeaderBoard: FC<LeaderBoardPrps> = ({ leaderList }) => {
   const firstLeader = leaderList[0];
   const remainingLeaders = leaderList.slice(1);
-  console.log(remainingLeaders);
+  
   return (
     <Paper className={styles.leaderBoardContainer}>
       <div className={styles.header}>
         <h1>LeaderBoard </h1>
-        <EmojiEventsIcon fontSize="large" />
+        {/* <EmojiEventsIcon fontSize="large" /> */}
       </div>
       <Paper className={styles.topper}>
       <Avatar >{firstLeader.name}</Avatar>

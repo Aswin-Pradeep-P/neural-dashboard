@@ -1,32 +1,38 @@
 .leaderBoardContainer {
     height: 100%;
     box-sizing: border-box;
-    padding: 24px;
-.header{
-    display: flex;
-    align-items: center;
-    gap: 12px
-}
+    padding: 32px 24px;
+    border-radius: 40px !important;
+
+    .header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        h1 {
+            margin-bottom: 0px;
+        }
+    }
+
     .leaderListWrapper {
-        height: 500px;
+        height: calc(100vh - 540px);
         overflow-y: scroll;
-        padding: 24px;
         display: flex;
         flex-direction: column;
         gap: 12px;
     }
 }
 
-.topper{
+.topper {
     display: flex;
     flex-direction: column;
-    margin: 24px;
+    margin: 24px 0px;
     height: 200px;
     justify-content: center;
     align-items: center;
 }
 
-.rankHolder{
+.rankHolder {
     font-size: 24px;
     font-weight: 600;
 }
