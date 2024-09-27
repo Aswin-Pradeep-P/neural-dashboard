@@ -1,7 +1,14 @@
 import { Grid2, Paper } from '@mui/material';
+
 import styles from './studentProfile.module.scss';
 import FormInput from '../../components/form-input/formInput';
 import Avatar from '../../components/avatar/avatar';
+import AssessmentCard from './components/assessment-card/assessmentCard';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useGetStudent } from '../../api/students/students';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import { profileAtom } from '../../atoms/profile';
 
 const student = {
     name: "Alice Smith", //
@@ -33,67 +40,82 @@ const student = {
     // hobbies: ["Reading", "Cycling", "Coding"],
 };
 
-const achievements = ['AA', 'BB', 'CC', 'DD', 'EE', 'FF', 'ef', 'kn', 'ef', 'aw', 'sd', 'er', 'ty', 'fg']
+const assessments = [
+    { title: "Data Structures Midterm", score: 85, date: "2024-03-15" },
+    { title: "Web Development Project", score: 92, date: "2024-04-10" },
+    { title: "Algorithms Final Exam", score: 78, date: "2024-05-22" },
+    { title: "Operating Systems Quiz", score: 88, date: "2024-02-27" },
+    { title: "Database Design Assignment", score: 95, date: "2024-03-30" }
+];
+
+const achievements = ['AA', 'BB', 'CC', 'DD', 'EE', 'FF', 'ef', 'kn', 'ek', 'aw', 'sd', 'er', 'ty', 'fg']
 
 
 const StudentProfile = () => {
+    const { studentId } = useParams();
+    const profile = useRecoilValue(profileAtom)
+    const id = studentId || profile.id;
+
+    const { getStudent, getStudentResponse } = useGetStudent(id as string);
+
+    useEffect(() => {
+        getStudent();
+    }, []);
+    console.log(getStudentResponse);
+
     return (
         <div className={styles.studentProfileContainer}>
             <div className={styles.studentProfileContent}>
                 <div className={styles.leftSection}>
                     <Paper className={styles.wrapper}>
-                        <span>Personal Info</span>
+                        <span className={styles.sectionTitle}>Personal Info</span>
                         <div className={styles.row}>
                             <div className={styles.infoWrapper}>
                                 <span className={styles.label}>Name</span>
-                                <FormInput type="text" defaultValue={student.name} />
+                                <FormInput type="text" value={getStudentResponse?.name} />
                             </div>
+                        </div>
+                        <div className={styles.row}>
                             <div className={styles.infoWrapper}>
                                 <span className={styles.label}>Roll Number</span>
-                                <FormInput type="text" defaultValue={student.rollNumber} />
+                                <FormInput type="text" value={student.rollNumber} disabled={true} />
+                            </div>
+                            <div className={styles.infoWrapper}>
+                                <span className={styles.label}>Date of birth</span>
+                                <FormInput type="text" value="24/12/2006" />
                             </div>
                         </div>
                         <div className={styles.row}>
                             <div className={styles.infoWrapper}>
                                 <span className={styles.label}>Age</span>
-                                <FormInput type="number" defaultValue={student.age} />
+                                <FormInput type="number" value={student.age} />
                             </div>
                             <div className={styles.infoWrapper}>
                                 <span className={styles.label}>Gender</span>
-                                <FormInput type="text" defaultValue={student.gender} />
-                            </div>
-                        </div>
-                        <div className={styles.row}>
-                            <div className={styles.infoWrapper}>
-                                <span className={styles.label}>Gender</span>
-                                <FormInput type="text" defaultValue={student.gender} />
-                            </div>
-                            <div className={styles.infoWrapper}>
-                                <span className={styles.label}>Parent Email</span>
-                                <FormInput type="email" defaultValue={student.parent.email} />
+                                <FormInput type="text" value={getStudentResponse?.gender} />
                             </div>
                         </div>
                     </Paper>
                     <Paper className={styles.wrapper}>
-                        <span>Contact Info</span>
+                        <span className={styles.sectionTitle}>Contact Info</span>
                         <div className={styles.row}>
                             <div className={styles.infoWrapper}>
                                 <span className={styles.label}>Email</span>
-                                <FormInput type="email" defaultValue={student.email} />
+                                <FormInput type="email" value={getStudentResponse?.email} />
                             </div>
                             <div className={styles.infoWrapper}>
                                 <span className={styles.label}>Contact Number</span>
-                                <FormInput type="text" defaultValue={student.phone} />
+                                <FormInput type="text" value={getStudentResponse?.phone} />
                             </div>
                         </div>
                         <div className={styles.row}>
                             <div className={styles.infoWrapper}>
                                 <span className={styles.label}>Parent Name</span>
-                                <FormInput type="text" defaultValue={student.parent.name} />
+                                <FormInput type="text" value={student.parent.name} />
                             </div>
                             <div className={styles.infoWrapper}>
                                 <span className={styles.label}>Parent Email</span>
-                                <FormInput type="email" defaultValue={student.parent.email} />
+                                <FormInput type="email" value={student.parent.email} />
                             </div>
                         </div>
                     </Paper>
@@ -104,51 +126,30 @@ const StudentProfile = () => {
                         <div>{student.name}</div>
                     </Paper>
                     <Paper className={styles.achievementsWrapper}>
-                        <span>Achievements</span>
+                        <span className={styles.sectionTitle}>Achievements</span>
                         <Grid2 container={true} gap={1}>
                             {achievements.map((item) => (
-                                <Grid2><Avatar>{item}</Avatar></Grid2>
+                                <Grid2 key={item}><Avatar>{item}</Avatar></Grid2>
                             ))}
                         </Grid2>
                     </Paper>
                     <Paper className={styles.assessmentsWrapper}>
-                        <span>Latest Assessments</span>
-                        <div className={styles.assessmentCard}>
-                            <span className={styles.assessmentName}>Assessment 1</span>
-                        </div>
-                        <div className={styles.assessmentCard}>
-                            <span className={styles.assessmentName}>Assessment 1</span>
-                        </div>
-                        <div className={styles.assessmentCard}>
-                            <span className={styles.assessmentName}>Assessment 1</span>
-                        </div>
-                        <div className={styles.assessmentCard}>
-                            <span className={styles.assessmentName}>Assessment 1</span>
-                        </div>
-                        <div className={styles.assessmentCard}>
-                            <span className={styles.assessmentName}>Assessment 1</span>
-                        </div>
-                        <div className={styles.assessmentCard}>
-                            <span className={styles.assessmentName}>Assessment 1</span>
-                        </div>
-                        <div className={styles.assessmentCard}>
-                            <span className={styles.assessmentName}>Assessment 1</span>
-                        </div>
-                        <div className={styles.assessmentCard}>
-                            <span className={styles.assessmentName}>Assessment 1</span>
-                        </div>
+                        <span className={styles.sectionTitle}>Latest Assessments</span>
+                        {assessments.map(({ date, score, title }) => (
+                            <AssessmentCard score={score} submittedDate={date} title={title} key={title} />
+                        ))}
                     </Paper>
                     <Paper className={styles.insightsWrapper}>
                         <div className={styles.insightSection}>
-                            <span>Strengths</span>
+                            <span className={styles.sectionTitle}>Strengths</span>
                             <span>wlknclkdnclknclknc</span>
                         </div>
                         <div className={styles.insightSection}>
-                            <span>Points to improve</span>
+                            <span className={styles.sectionTitle}>Points to improve</span>
                             <span>wlknclkdnclknclknc</span>
                         </div>
                         <div className={styles.insightSection}>
-                            <span>Note</span>
+                            <span className={styles.sectionTitle}>Note</span>
                             <span>wlknclkdnclknclknc</span>
                         </div>
                     </Paper>
