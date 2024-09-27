@@ -55,7 +55,7 @@ const Library: React.FC = () => {
           </TableHead>
           <TableBody>
             {files.map((file, index) => (
-              <TableRow key={index}>
+              <TableRow key={index} style={index % 2 === 0 ? { backgroundColor: '#D3EEE3' } : {}}>
                 <TableCell>{file.name}</TableCell>
                 <TableCell>{file.subject}</TableCell>
                 <TableCell>{file.uploadedBy}</TableCell>
