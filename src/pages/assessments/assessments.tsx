@@ -1,9 +1,10 @@
 import React from 'react';
-import { Card, CardContent, CardActions, IconButton, Menu, MenuItem, Button, Box, Typography, Grid, Grid2 } from '@mui/material';
+import { Card, CardContent, CardActions, IconButton, Menu, MenuItem, Box, Typography, Grid, Grid2 } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom';
 
 import styles from './createAssessment.module.scss'
+import Button from '../../components/button/button';
 
 const assessments = [
   { id: 1, name: 'Assessment 1', subject: 'Math', createdDate: '2023-10-01' },
@@ -41,7 +42,7 @@ const Assessments: React.FC = () => {
   return (
     <Box padding={4} className={styles.assessmentWrapper}>
       <Box display="flex" justifyContent="flex-end" mb={2}>
-        <Button label="Create Assessment" onClick={handleCreateAssessment} />
+        <Button label="Create Assessment" onClick={handleCreateAssessment}></Button>
       </Box>
       <Grid2 container spacing={2}>
         {assessments.map((assessment) => (
