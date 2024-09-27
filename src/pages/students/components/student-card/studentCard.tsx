@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Avatar from "../../../../components/avatar/avatar";
 import { StudentCardProps } from "../../types";
 
 import styles from './studentCard.module.scss';

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Button from '../button/button';
 import FormInput from '../form-input/formInput';
+import Select from '../select/select';
 
 import styles from './questionsViewers.module.scss'
 
@@ -12,20 +13,34 @@ interface Question {
 }
 
 interface QuestionsViewerProps {
+  assessmentTopic: string;
   questions: Question[];
   onAddToAssessment: (question: Question) => void;
+  onGenerateAssessment: (topic: string) => void;
+  setDifficulty: any;
+  setSubject: any;
+  difficulty: any;
+  subject: any;
 }
 
-const QuestionsViewer: React.FC<QuestionsViewerProps> = ({ questions, onAddToAssessment }) => {
+const QuestionsViewer: React.FC<QuestionsViewerProps> = ({ questions, onAddToAssessment, onGenerateAssessment, setDifficulty, setSubject, difficulty, subject }) => {
   const [chatInput, setChatInput] = useState('');
+  
+  const handleDifficultyChange = (newValue: any) => {
+    setDifficulty(newValue);
+  };
+
+  const handleSubjectChange = (newValue: any) => {
+    setSubject(newValue);
+  };
+
 
   const handleChatInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChatInput(event.target.value);
   };
 
   const handleChatSubmit = () => {
-    console.log('Chat submitted:', chatInput);
-    setChatInput('');
+   onGenerateAssessment(chatInput);
   };
 
   return (
@@ -52,6 +67,29 @@ const QuestionsViewer: React.FC<QuestionsViewerProps> = ({ questions, onAddToAss
             </div>
           ))
         )}
+      </div>
+      <div style={{ display: 'flex', marginBottom: '20px', gap: '16px' }}>
+        <Select
+          value={difficulty}
+          onChange={handleDifficultyChange}
+          options={[
+        { label: 'Easy', value: 'easy' },
+        { label: 'Medium', value: 'medium' },
+        { label: 'Hard', value: 'hard' }
+          ]}
+          placeholder="Select Difficulty"
+        />
+        <Select
+          value={subject}
+          onChange={handleSubjectChange}
+          options={[
+        { label: 'Math', value: 'a7ba5181-3d8d-402c-9197-6bc6b7e5721c' },
+        { label: 'Science', value: 'Science' },
+        { label: 'History', value: 'History' },
+        { label: 'Language', value: 'Language' }
+          ]}
+          placeholder="Select Subject"
+        />
       </div>
       <div style={{ marginTop: '20px' }}>
         <FormInput
