@@ -35,18 +35,6 @@
                     border-radius: 8px;
                 }
             }
-
-            .achievementsWrapper {
-                display: flex;
-                flex-direction: column;
-                padding: 16px;
-                gap: 8px;
-                border-radius: 16px;
-
-                img {
-                    width: 48px;
-                }
-            }
         }
     }
 }
@@ -54,12 +42,14 @@
 .sectionTitle {
     font-size: 18px;
     font-weight: 700;
+    margin-bottom: 8px;
 }
 
 .wrapper {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 16px;
+    width: 100%;
     padding: 32px 24px;
     border-radius: 16px;
 
@@ -70,7 +60,6 @@
 
     .infoWrapper {
         display: flex;
-        flex-direction: column;
         gap: 8px;
         flex: 1;
     }
@@ -78,4 +67,16 @@
 
 .label {
     font-size: 16px;
+}
+
+.achievementsWrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 8px;
+    border-radius: 16px;
+
+    img {
+        width: 48px;
+    }
 }

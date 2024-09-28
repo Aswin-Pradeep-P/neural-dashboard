@@ -1,14 +1,14 @@
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import { Grid2, Paper } from '@mui/material';
 
-import styles from './studentProfile.module.scss';
-import FormInput from '../../components/form-input/formInput';
-import Avatar from '../../components/avatar/avatar';
 import AssessmentCard from './components/assessment-card/assessmentCard';
-import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useGetStudent } from '../../api/students/students';
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import { useGetLeaderboardStudents, useGetStudent } from '../../api/students/students';
 import { profileAtom } from '../../atoms/profile';
+import LeaderBoard from '../../components/leaderBoard/leaderBoard';
+
+import styles from './studentProfile.module.scss';
 
 const student = {
     name: "Alice Smith", //
@@ -54,6 +54,11 @@ const StudentProfile = () => {
     const id = studentId || profile.id;
 
     const { getStudent, getStudentResponse } = useGetStudent(id as string);
+    const { getLeaderboardStudents, getLeaderboardStudentsResponse } = useGetLeaderboardStudents();
+
+    useEffect(() => {
+        getLeaderboardStudents();
+    }, []);
 
     useEffect(() => {
         getStudent();
@@ -63,35 +68,65 @@ const StudentProfile = () => {
         <div className={styles.studentProfileContainer}>
             <div className={styles.studentProfileContent}>
                 <div className={styles.leftSection}>
-                    <Paper className={styles.wrapper}>
-                        <span className={styles.sectionTitle}>Personal Info</span>
-                        <div className={styles.row}>
-                            <div className={styles.infoWrapper}>
-                                <span className={styles.label}>Name</span>
-                                <FormInput type="text" value={getStudentResponse?.name} />
+                    <div style={{ display: 'flex', gap: '24px' }}>
+                        <Paper className={styles.wrapper}>
+                            <span className={styles.sectionTitle}>Personal Info</span>
+                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                                    <div className={styles.infoWrapper}>
+                                        <span className={styles.label}>Name:</span>
+                                        <span>{getStudentResponse?.name}</span>
+                                    </div>
+                                    <div className={styles.infoWrapper}>
+                                        <span className={styles.label}>Roll Number:</span>
+                                        <span>{getStudentResponse?.rollNumber}</span>
+                                    </div>
+                                    <div className={styles.infoWrapper}>
+                                        <span className={styles.label}>Date of birth:</span>
+                                        <span>{getStudentResponse?.dob || '24/12/2006'}</span>
+                                    </div>
+                                    <div className={styles.infoWrapper}>
+                                        <span className={styles.label}>Age:</span>
+                                        <span>{student.age}</span>
+                                    </div>
+                                    <div className={styles.infoWrapper}>
+                                        <span className={styles.label}>Gender:</span>
+                                        <span>{getStudentResponse?.gender}</span>
+                                    </div>
+                                </div>
+                                <img style={{ width: '200px', borderRadius: '8px' }} src="../avatar.jpg" alt="avatar" />
                             </div>
-                        </div>
-                        <div className={styles.row}>
+                        </Paper>
+                        <Paper className={styles.achievementsWrapper}>
+                            <span className={styles.sectionTitle}>Achievements</span>
+                            <Grid2 container={true} gap={1}>
+                                {achievements.map(({ src, title }) => (
+                                    <Grid2 key={title}>
+                                        <img src={src} alt={title} title={title} />
+                                    </Grid2>
+                                ))}
+                            </Grid2>
+                        </Paper>
+                        <Paper className={styles.wrapper}>
+                            <span className={styles.sectionTitle}>Contact Info</span>
                             <div className={styles.infoWrapper}>
-                                <span className={styles.label}>Roll Number</span>
-                                <FormInput type="text" value={student.rollNumber} disabled={true} />
+                                <span className={styles.label}>Email:</span>
+                                <span>{getStudentResponse?.email}</span>
                             </div>
                             <div className={styles.infoWrapper}>
-                                <span className={styles.label}>Date of birth</span>
-                                <FormInput type="text" value="24/12/2006" />
-                            </div>
-                        </div>
-                        <div className={styles.row}>
-                            <div className={styles.infoWrapper}>
-                                <span className={styles.label}>Age</span>
-                                <FormInput type="number" value={student.age} />
+                                <span className={styles.label}>Contact Number:</span>
+                                <span>{getStudentResponse?.phone}</span>
                             </div>
                             <div className={styles.infoWrapper}>
-                                <span className={styles.label}>Gender</span>
-                                <FormInput type="text" value={getStudentResponse?.gender} />
+                                <span className={styles.label}>Parent Name:</span>
+                                <span>{student.parent.name}</span>
                             </div>
-                        </div>
-                    </Paper>
+                            <div className={styles.infoWrapper}>
+                                <span className={styles.label}>Parent Email:</span>
+                                <span>{student.parent.email}</span>
+                            </div>
+                        </Paper>
+                    </div>
                     <div style={{ display: 'flex', gap: '24px' }}>
                         <Paper className={styles.wrapper}>
                             <span className={styles.sectionTitle}>Latest Assessments</span>
@@ -105,41 +140,7 @@ const StudentProfile = () => {
                         </Paper>
                     </div>
                 </div>
-                <div className={styles.rightSection}>
-                    <Paper className={styles.userWrapper}>
-                        <img src="../avatar.jpg" alt="avatar" />
-                        <div>{student.name}</div>
-                    </Paper>
-                    <Paper className={styles.achievementsWrapper}>
-                        <span className={styles.sectionTitle}>Achievements</span>
-                        <Grid2 container={true} gap={1}>
-                            {achievements.map(({ src, title }) => (
-                                <Grid2 key={title}>
-                                    <img src={src} alt={title} title={title} />
-                                </Grid2>
-                            ))}
-                        </Grid2>
-                    </Paper>
-                    <Paper className={styles.wrapper}>
-                        <span className={styles.sectionTitle}>Contact Info</span>
-                        <div className={styles.infoWrapper}>
-                            <span className={styles.label}>Email</span>
-                            <span>{getStudentResponse?.email}</span>
-                        </div>
-                        <div className={styles.infoWrapper}>
-                            <span className={styles.label}>Contact Number</span>
-                            <span>{getStudentResponse?.phone}</span>
-                        </div>
-                        <div className={styles.infoWrapper}>
-                            <span className={styles.label}>Parent Name</span>
-                            <span>{student.parent.name}</span>
-                        </div>
-                        <div className={styles.infoWrapper}>
-                            <span className={styles.label}>Parent Email</span>
-                            <span>{student.parent.email}</span>
-                        </div>
-                    </Paper>
-                </div>
+                <LeaderBoard leaderList={getLeaderboardStudentsResponse} />
             </div>
         </div>
     );

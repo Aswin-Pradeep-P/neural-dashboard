@@ -9,7 +9,7 @@ import StudentCard from './components/student-card/studentCard';
 import styles from './students.module.scss';
 import Button from '../../components/button/button';
 
-interface Student {
+export interface Student {
   avgScore: number;
   dob: string;
   email: string;
