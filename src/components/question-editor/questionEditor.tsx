@@ -113,7 +113,9 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({ editableQuestions, setE
                   </ol>
                 )}
                 {(question.type === 'Short-Answer' || question.type === 'Essay' || question.type === 'Case-Study') && (
-                  <div>
+                  <>
+                  <div style={{display: 'flex'}}>
+                    <span style={{width: '35px'}} />
                     <FormInput
                       value={question.answer || ''}
                       onChange={(e) => handleExpectedAnswerChange(qIndex, e.target.value)}
@@ -122,7 +124,8 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({ editableQuestions, setE
                       rows={4}
                       placeholder="Expected Answer"
                     />
-                    
+                    </div>
+                    <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                       <Button
                         label="Generate Answer"
                         onClick={() => handleGenerateAnswer(qIndex)}
@@ -132,6 +135,7 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({ editableQuestions, setE
                         Generate Answer
                       </Button>
                   </div>
+                  </>
                 )}
               </div>
             ))}

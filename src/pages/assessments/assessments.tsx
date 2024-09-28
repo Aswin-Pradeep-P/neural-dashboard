@@ -129,11 +129,11 @@ const Assessments: React.FC = () => {
   return (
     <Box className={styles.assessmentWrapper}>
       {generatingAssessment && <CircularLoader />}
-      <Box display="flex" justifyContent="flex-start" mb={2}  style={{ marginBottom: '24px' }}>
-      <h1 style={{ marginBottom: '0' }}>Assessments</h1>
-      {profile.type === 'teacher' && <Box display="flex" justifyContent="flex-end" mb={2}>
-        <Button label="Create Assessment" onClick={handleCreateAssessment}></Button>
-      </Box>}
+      <Box mb={2}  style={{ marginBottom: '24px', display: 'flex', width: '100%', justifyContent: 'space-between' }}>
+        <h1 style={{ marginBottom: '0' }}>Assessments</h1>
+        {profile.type === 'teacher' && <Box display="flex" justifyContent="flex-end" mb={2}>
+          <Button label="Create Assessment" onClick={handleCreateAssessment}></Button>
+        </Box>}
       </Box>
       <Grid2 container={true} gap={4}>
         {getAssessmentsResponse?.assessments?.map((assessment: any) => (
