@@ -131,12 +131,11 @@ const Assessments: React.FC = () => {
       {generatingAssessment && <CircularLoader />}
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
       <h1 style={{ marginBottom: '0' }}>Assessments</h1>
-        <Button label="Create Assessment" onClick={handleCreateAssessment}></Button>
-      </Box>
-      <Grid2 container={true} gap={4}>
       {profile.type === 'teacher' && <Box display="flex" justifyContent="flex-end" mb={2}>
         <Button label="Create Assessment" onClick={handleCreateAssessment}></Button>
       </Box>}
+      </Box>
+      <Grid2 container={true} gap={4}>
         {getAssessmentsResponse?.assessments?.map((assessment: any) => (
           <Grid2 key={assessment.id}>
             <Card sx={{ width: 300 }} className={styles.assessmentCard}> {/* Adjust the width value as needed */}
