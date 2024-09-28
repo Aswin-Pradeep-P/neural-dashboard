@@ -14,6 +14,8 @@ import { subjectId } from "../../constants";
 import CircularLoader from "../../components/circular-loader/circularLoader";
 import { planAtom } from "../../atoms/plan";
 
+import styles from './plans.module.scss';
+
 
 const Plans = () => {
     const navigate = useNavigate();
@@ -94,8 +96,10 @@ const Plans = () => {
                                 <Typography variant="h6">{plan.name}</Typography>
                                 <Typography color="textSecondary">Subject: {plan.subject.name}</Typography>
                                 <Typography color="textSecondary">Created Date: {moment(plan.createdAt).format('DD-MM-YYYY')}</Typography>
+                                <Button containerClass={styles.shareBtn} label="Share" onClick={handleShare}></Button>
                             </CardContent>
-                            <CardActions sx={{ justifyContent: 'flex-end' }}>
+                            
+                            {/* <CardActions sx={{ justifyContent: 'flex-end' }}>
                                 <IconButton onClick={(event) => handleClick(event, plan.id)}>
                                     <MoreVertIcon />
                                 </IconButton>
@@ -114,7 +118,7 @@ const Plans = () => {
                                 >
                                     <MenuItem onClick={handleShare}>Share</MenuItem>
                                 </Menu>
-                            </CardActions>
+                            </CardActions> */}
                         </Card>
                     </Grid2>
                 ))}

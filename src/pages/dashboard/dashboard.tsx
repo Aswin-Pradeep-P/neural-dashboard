@@ -1,15 +1,17 @@
+import { useEffect } from 'react';
 import { Paper } from '@mui/material';
 import { PieChart } from '@mui/x-charts/PieChart';
 import { BarChart } from '@mui/x-charts/BarChart';
 
 import styles from './dashboard.module.scss';
-import { assessmentReport, dashboardCard, leaderData } from './constants';
+import { assessmentReport, dashboardCard } from './constants';
 import DashboardCard from '../../components/dashboardCard/dashboardCard';
 import LeaderBoard from '../../components/leaderBoard/leaderBoard';
 import Header from '../../components/header/header';
 import { useRecoilValue } from 'recoil';
 import { profileAtom } from '../../atoms/profile';
 import StudentDashboard from '../student-dashboard/studentDashboard';
+import { useGetLeaderboardStudents } from '../../api/students/students';
 
 const pData = [77, 92, 68, 89, 85];
 const xLabels = [
@@ -22,6 +24,12 @@ const xLabels = [
 
 const Dashboard = () => {
   const profile = useRecoilValue(profileAtom);
+
+  const { getLeaderboardStudents, getLeaderboardStudentsResponse } = useGetLeaderboardStudents();
+
+  useEffect(() => {
+    getLeaderboardStudents();
+  }, []);
 
   if(profile.type === 'student') {
     return <StudentDashboard />
@@ -63,7 +71,7 @@ const Dashboard = () => {
                 />
                 </Paper>
               <Paper className={styles.modulesReport}>
-                <h3>Module</h3>
+                <h3>Average Score</h3>
                 <BarChart
                   colors={['#25BF8B']} 
                   width={500}
@@ -72,13 +80,18 @@ const Dashboard = () => {
                     { data: pData, label: 'Average Score', id: 'pvId' },
                   ]}
                   xAxis={[{ data: xLabels, scaleType: 'band' }]}
+                  slotProps={{
+                    legend: {
+                      hidden: true
+                    },
+                  }}
                 />
               </Paper>
             </div>
           </Paper>
         </Paper>
       </div>
-      <LeaderBoard leaderList={leaderData} />
+      <LeaderBoard leaderList={getLeaderboardStudentsResponse} />
     </div>
   );
 };

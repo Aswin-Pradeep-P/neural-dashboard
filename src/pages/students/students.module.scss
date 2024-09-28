@@ -12,6 +12,13 @@
         .studentsHeader {
             background: none;
             box-shadow: none;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            align-items: center;
+            .studh1{
+                margin-bottom: 0;
+            }
         }
 
         .studentFilter {
@@ -22,6 +29,7 @@
         .studentsSection {
             background: none;
             box-shadow: none;
+            padding-bottom: 32px;
 
             .studentSearchFilterWrapper {
                 display: flex;

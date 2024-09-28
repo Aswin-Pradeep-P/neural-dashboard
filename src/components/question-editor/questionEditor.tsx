@@ -8,6 +8,7 @@ import CircularLoader from '../circular-loader/circularLoader';
 import { useRecoilValue } from 'recoil';
 import { selectedClass } from '../../atoms/selectedClass';
 import { useNavigate } from 'react-router-dom';
+import { assessmentData } from '../../atoms/setAssessmentData';
 
 interface Question {
   text: string;
@@ -28,6 +29,7 @@ interface QuestionEditorProps {
 
 const QuestionEditor: React.FC<QuestionEditorProps> = ({ editableQuestions, setEditableQuestions, difficulty, subject }) => {
   const { getAnswer, gettingAnswer } = useGetAnswer();
+  const storedValue = useRecoilValue<any>(assessmentData);
   const navigate = useNavigate();
   const [assessmentTopic, setAssessmentTopic] = useState('');
   const { createAssessment, creatingAssessment } = useCreateAssessment();
@@ -37,6 +39,8 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({ editableQuestions, setE
     updatedQuestions[index].text = newText;
     setEditableQuestions(updatedQuestions);
   };
+
+  console.log("diff",storedValue)
 
   const handleOptionChange = (qIndex: number, oIndex: number, newOption: string) => {
     const updatedQuestions = [...editableQuestions];
@@ -113,7 +117,9 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({ editableQuestions, setE
                   </ol>
                 )}
                 {(question.type === 'Short-Answer' || question.type === 'Essay' || question.type === 'Case-Study') && (
-                  <div>
+                  <>
+                  <div style={{display: 'flex'}}>
+                    <span style={{width: '35px'}} />
                     <FormInput
                       value={question.answer || ''}
                       onChange={(e) => handleExpectedAnswerChange(qIndex, e.target.value)}
@@ -122,7 +128,8 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({ editableQuestions, setE
                       rows={4}
                       placeholder="Expected Answer"
                     />
-                    
+                    </div>
+                    <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                       <Button
                         label="Generate Answer"
                         onClick={() => handleGenerateAnswer(qIndex)}
@@ -132,6 +139,7 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({ editableQuestions, setE
                         Generate Answer
                       </Button>
                   </div>
+                  </>
                 )}
               </div>
             ))}
@@ -143,15 +151,15 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({ editableQuestions, setE
               createAssessment({
                 data: {
                   name: assessmentTopic,
-                  level: difficulty.value,
-                  gradeId: classSelected.id,
-                  subjectId: subject.value,
-                  questions: editableQuestions.map((question) => ({
-                    questionText: question.text,
-                    options: question.options,
-                    answer: question.answer,
-                    type: question.type,
-                    weightage: question.weightage
+                  level: storedValue?.difficulty?.value,
+                  gradeId: classSelected?.id,
+                  subjectId: storedValue?.subject?.value,
+                  questions: editableQuestions?.map((question) => ({
+                    questionText: question?.text,
+                    options: question?.options,
+                    answer: question?.answer,
+                    type: question?.type,
+                    weightage: question?.weightage
                   })),
                 },
                 onCompleted: () => {

@@ -22,3 +22,14 @@ export const useGetStudent = (studentId: string) => {
 
     return { getStudent, getStudentError, getStudentResponse, gettingStudent };
 };
+
+export const useGetLeaderboardStudents = () => {
+    const {
+        callApi: getLeaderboardStudents,
+        error: getLeaderboardStudentsError,
+        loading: gettingLeaderboardStudents,
+        response: getLeaderboardStudentsResponse
+    } = useApi({ method: HttpMethod.POST, url: `${apiUrl}/user/list/students?sort=score` });
+
+    return { getLeaderboardStudents, getLeaderboardStudentsError, getLeaderboardStudentsResponse, gettingLeaderboardStudents };
+};
