@@ -1,10 +1,16 @@
-import styles from './studentDashboard.module.scss';
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
 import StudentReport from './components/student-report/studentReport';
 import StudentProfile from '../student-profile/studentProfile';
+import Header from '../../components/header/header';
+
+import styles from './studentDashboard.module.scss';
 
 const StudentDashboard = () => {
+  const location = useLocation();
   const [tab, setTab] = useState('Profile');
+  console.log(location.pathname);
 
   const getStudentTab = () => {
     if (tab === 'Profile') {
@@ -15,6 +21,7 @@ const StudentDashboard = () => {
   };
   return (
     <div className={styles.studentDashboard}>
+      {location.pathname === '/dashboard' && <Header />}
       <div className={styles.tabsContainer}>
         <div
           className={`${styles.tab} ${tab === 'Profile' ? styles.selectedTab : ''}`}
