@@ -71,7 +71,7 @@ const Plans = () => {
         // Simulate plan generation
         getLessonPlan({
           data: {
-            sessionId: moment().unix().toString(),
+            session_id: moment().unix().toString(),
             message: description,
           },
           onCompleted: (data) => {
@@ -124,28 +124,30 @@ const Plans = () => {
                 ))}
             </Grid2>
 
-            <Dialog open={openDialog} onClose={handleDialogClose}>
+            <Dialog open={openDialog} onClose={handleDialogClose} maxWidth="lg">
                 <DialogTitle>Create Plan</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         Please enter the details for the new plan.
                     </DialogContentText>
-                    <Select options={[
-                        { value: subjectId, label: 'Math' },
-                        { value: 'science', label: 'Science' },
-                        { value: 'english', label: 'English' },
-                    ]} label="Subject" value={subject}
-                         onChange={(newValue: any) => setSubject(newValue)} />
-                    <TextField
-                        margin="normal"
-                        label="Description"
-                        type="text"
-                        fullWidth
-                        multiline
-                        rows={4}
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                    />
+                    <div style={{width: 500}}>
+                        <Select options={[
+                            { value: subjectId, label: 'Math' },
+                            { value: 'science', label: 'Science' },
+                            { value: 'english', label: 'English' },
+                        ]} label="Subject" value={subject}
+                             onChange={(newValue: any) => setSubject(newValue)} />
+                        <TextField
+                            margin="normal"
+                            label="Description"
+                            type="text"
+                            fullWidth
+                            multiline
+                            rows={4}
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                        />
+                    </div>
                 </DialogContent>
                 <DialogActions>
                     <Button label="Cancel" onClick={handleDialogClose} />
