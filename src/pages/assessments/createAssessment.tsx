@@ -6,13 +6,15 @@ import styles from './createAssessment.module.scss';
 import { Grid2, Paper } from '@mui/material';
 import { useGenerateAssessment } from '../../api/assessment/assesment';
 import CircularLoader from '../../components/circular-loader/circularLoader';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import { questionsAtom } from '../../atoms/questions';
 import DialogBox from './dialog';
 import Button from '../../components/button/button';
+import { assessmentData } from '../../atoms/setAssessmentData';
 
 const CreateAssessment = () => {
   const [editableQuestions, setEditableQuestions] = useState<any[]>([]);
+  const [, setAssessmentData] = useRecoilState(assessmentData);
   const storedQuestions = useRecoilValue<any[]>(questionsAtom);
   const [questions, setQuestions] = useState<any[]>([]);
   const [openDialog, setOpenDialog] = useState(false);
@@ -45,6 +47,11 @@ const CreateAssessment = () => {
     generateAssessment({
       data,
       onCompleted: (data) => {
+        setAssessmentData({
+          difficulty:difficulty,
+          subject:subject,
+          chatInput: chatInput
+        })
         setQuestions(data.map((data: any) => ({ ...data, options: data.choices, text: data.question })));
         setOpenDialog(false);
       },
@@ -69,10 +76,13 @@ const CreateAssessment = () => {
 
   const handleChatInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChatInput(event.target.value);
+ 
   };
 
   const handleChatSubmit = () => {
    onGenerateAssessment(chatInput);
+
+
   };
 
   return (
