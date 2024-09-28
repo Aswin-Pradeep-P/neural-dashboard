@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FormInput from '../../components/form-input/formInput';
 import Button from '../../components/button/button';
 import Select from '../../components/select/select';
@@ -12,6 +12,7 @@ import { useRecoilValue } from 'recoil';
 import { profileAtom } from '../../atoms/profile';
 import { subjectId } from '../../constants';
 import { useNavigate } from 'react-router-dom';
+import { planAtom } from '../../atoms/plan';
 
 const lessonPlanMapping: any = {
   expected_learning_outcomes: 'Expected learning outcomes',
@@ -23,19 +24,25 @@ const lessonPlanMapping: any = {
   assessment_methods: 'Assessment methods',
 };
 
-const CreatePlan: React.FC = () => {
-  const [plan, setPlan] = useState<string>('');
+const CreatePlan: any = ({genPlan}: any) => {
   const [message, setMessage] = useState<string>('');
+  const plan = useRecoilValue(planAtom);
   const [grade, setGrade] = useState<any>(null);
   const [subject, setSubject] = useState<any>(null);
   const { getLessonPlan, gettingLessonPlan } = useGetLessonPlan();
-  const [lessonPlan, setLessonPlan] = useState<any>({});
+  const [lessonPlan, setLessonPlan] = useState<any>(plan);
   const [draftPlan, setDraftPlan] = useState<any>({});
   const [editableSections, setEditableSections] = useState<{ [key: string]: boolean }>({});
   const [planName, setPlanName] = useState<string>('Draft Plan');
   const profile = useRecoilValue(profileAtom);
   const { saveLessonPlan, savingLessonPlan } = useSaveLessonPlan(profile.id);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setLessonPlan(plan);
+  }, [plan])
+
+  console.log(plan)
 
   const handleSend = () => {
     // Simulate plan generation
@@ -100,7 +107,7 @@ const CreatePlan: React.FC = () => {
     saveLessonPlan({
       data,
       onCompleted: () => {
-        navigate('/lesson-plans');
+        navigate('/planner');
       }
   })
 ;  };
@@ -113,47 +120,8 @@ const CreatePlan: React.FC = () => {
     <div style={{ display: 'flex', width: '100%', height: 'calc(100vh)' }}>
       {(gettingLessonPlan || savingLessonPlan) && <CircularLoader />}
       <div style={{ flex: 1 }}>
-        <div style={{ display: 'flex' }}>
-          <div style={{ marginRight: '16px' }}>
-            <Select
-              value={grade}
-              onChange={(newValue) => setGrade(newValue)}
-              options={[
-                { label: 'Easy', value: 'easy' },
-                { label: 'Medium', value: 'medium' },
-                { label: 'Hard', value: 'hard' },
-              ]}
-              placeholder="Select grade"
-            />
-          </div>
-          <Select
-            value={subject}
-            onChange={(newValue) => setSubject(newValue)}
-            options={[
-              { label: 'Math', value: subjectId },
-              { label: 'Science', value: 'Science' },
-              { label: 'History', value: 'History' },
-              { label: 'Language', value: 'Language' },
-            ]}
-            placeholder="Select Subject"
-          />
-        </div>
-        <div style={{ flex: 1, padding: '10px', borderRight: '1px solid #ccc' }}>
-          <FormInput
-            type="text"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            placeholder="Type your plan here"
-            style={{ width: '100%', marginTop: '10px' }}
-            multiline={true}
-            InputProps={{style: {height: 'unset'}}}
-            rows={3}
-          />
-          <Button label="Send" onClick={handleSend} style={{ marginTop: '10px' }}>
-            Send
-          </Button>
-        </div>
-        <div style={{ flex: 1, padding: '10px' }}>
+        <h1>Create Plan</h1>
+        <div style={{ flex: 1, padding: '10px', height: 'calc(100vh - 160px)', overflow: 'auto', marginTop: '24px' }}>
           {Object.keys(lessonPlan)?.map((key) => (
             <div key={key} style={{ marginBottom: '20px' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
