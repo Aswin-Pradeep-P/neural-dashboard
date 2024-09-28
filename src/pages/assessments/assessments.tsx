@@ -145,8 +145,9 @@ const Assessments: React.FC = () => {
                 <Typography color="textSecondary">{assessment.grade.name}</Typography>
                 <Typography color="textSecondary">Level: {capitalize(assessment.level)}</Typography>
                 <Typography color="textSecondary">Created Date: {moment(assessment.createdAt).format('DD-MM-YYYY')}</Typography>
+                <Button containerClass={styles.shareBtn} label={getAssessmentText()} onClick={handleShare}></Button>
               </CardContent>
-              <CardActions sx={{ justifyContent: 'flex-end' }} className={styles.cardActions}>
+              {/* <CardActions sx={{ justifyContent: 'flex-end' }} className={styles.cardActions}>
                 <IconButton onClick={(event) => handleClick(event, assessment.id)}>
                   <MoreVertIcon />
                 </IconButton>
@@ -165,7 +166,7 @@ const Assessments: React.FC = () => {
                 >
                   <MenuItem onClick={handleShare}>{getAssessmentText()}</MenuItem>
                 </Menu>
-              </CardActions>
+              </CardActions> */}
             </Card>
           </Grid2>
         ))}
