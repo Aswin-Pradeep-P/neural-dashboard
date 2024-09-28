@@ -8,7 +8,7 @@ const FormInput: FC<TextFieldProps> = (props) => {
       InputProps={
         props.InputProps || {
         style: {
-          height: '50px',
+          ...(!props.multiline && {height: '50px'}),
           borderRadius: '12px',
           padding: '12.5px 14px !important',
         },
