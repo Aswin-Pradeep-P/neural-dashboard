@@ -16,8 +16,7 @@ const navItems =  [
     { name: 'Students', icon: <Person />, path: '/students', paths: ['/students'] },
     { name: 'Library', icon: <LibraryBooksIcon />, path: '/library', paths: ['/library'] },
     { name: 'Assessments', icon: <AssessmentIcon />, path: '/assessments', paths: ['/assessments', '/assessments/create'] },
-    { name: 'Planner', icon: <ChatIcon />, path: '/planner', paths: ['/planner', '/planner/create'] },
-    { name: 'Chat', icon: <ChatIcon />, path: '/chat', paths: ['/chat'] } ]
+    { name: 'Planner', icon: <ChatIcon />, path: '/planner', paths: ['/planner', '/planner/create'] }]
 
     const studentNavItems =  [
       { name: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard', paths : ['/dashboard'] },

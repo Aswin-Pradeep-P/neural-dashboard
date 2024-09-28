@@ -63,7 +63,7 @@ const Dashboard = () => {
                 />
                 </Paper>
               <Paper className={styles.modulesReport}>
-                <h3>Module</h3>
+                <h3>Average Score</h3>
                 <BarChart
                   colors={['#25BF8B']} 
                   width={500}
@@ -72,6 +72,11 @@ const Dashboard = () => {
                     { data: pData, label: 'Average Score', id: 'pvId' },
                   ]}
                   xAxis={[{ data: xLabels, scaleType: 'band' }]}
+                  slotProps={{
+                    legend: {
+                      hidden: true
+                    },
+                  }}
                 />
               </Paper>
             </div>

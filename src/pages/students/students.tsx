@@ -12,6 +12,7 @@ interface Student {
   avgScore: number;
   dob: string;
   email: string;
+  gender: string;
   id: string;
   name: string;
   phone: string;
@@ -41,10 +42,10 @@ const Students = () => {
               <SearchInput onChange={(e) => setSearchString(e.target.value)} value={searchString}  />
               <div className={styles.studentFilter}><FilterListIcon /></div>
             </div>
-            <Grid2 container={true} gap={4} justifyContent="space-between">
-              {getStudentsList()?.map(({ email, id,  name }: Student, index: number) => (
+            <Grid2 container={true} gap={4} justifyContent="flex-start">
+              {getStudentsList()?.map(({ email, gender, id,  name }: Student, index: number) => (
                 <Grid2>
-                  <StudentCard email={email} id={id} name={name} rollNumber={index+1} />
+                  <StudentCard email={email} gender={gender} id={id} name={name} rollNumber={index+1} />
                 </Grid2>
               ))}
             </Grid2>

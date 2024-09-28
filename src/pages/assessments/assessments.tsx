@@ -129,7 +129,7 @@ const Assessments: React.FC = () => {
   return (
     <Box className={styles.assessmentWrapper}>
       {generatingAssessment && <CircularLoader />}
-      <Box display="flex" justifyContent="flex-end" mb={2}>
+      <Box display="flex" justifyContent="flex-end" mb={2}  style={{ marginBottom: '24px' }}>
         <Button label="Create Assessment" onClick={handleCreateAssessment}></Button>
       </Box>
       <Grid2 container={true} gap={4}>
@@ -144,7 +144,7 @@ const Assessments: React.FC = () => {
                 <Typography color="textSecondary">Subject: {assessment.subject.name}</Typography>
                 <Typography color="textSecondary">{assessment.grade.name}</Typography>
                 <Typography color="textSecondary">Level: {capitalize(assessment.level)}</Typography>
-                <Typography color="textSecondary">Created Date: {moment(assessment.createdAt).format('DD-MM-YYYY')}</Typography>
+                <Typography color="textSecondary" style={{ marginBottom: '20px' }}>Created Date: {moment(assessment.createdAt).format('DD-MM-YYYY')}</Typography>
                 <Button containerClass={styles.shareBtn} label={getAssessmentText()} onClick={handleShare}></Button>
               </CardContent>
               {/* <CardActions sx={{ justifyContent: 'flex-end' }} className={styles.cardActions}>
