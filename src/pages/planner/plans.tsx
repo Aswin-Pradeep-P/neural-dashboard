@@ -1,13 +1,19 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { Box, Card, CardActions, CardContent, Grid2, IconButton, Menu, MenuItem, Typography } from "@mui/material";
+import { Box, Card, CardActions, CardContent, Grid2, IconButton, Menu, MenuItem, Typography, Dialog, DialogActions, 
+    DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
 
 import Button from "../../components/button/button";
-import { useGetLessonPlans } from "../../api/planner/planner";
+import Select from "../../components/select/select";
+import { useGetLessonPlan, useGetLessonPlans } from "../../api/planner/planner";
 import { profileAtom } from "../../atoms/profile";
 import moment from "moment";
+import { subjectId } from "../../constants";
+import CircularLoader from "../../components/circular-loader/circularLoader";
+import { planAtom } from "../../atoms/plan";
+
 
 const Plans = () => {
     const navigate = useNavigate();
@@ -15,6 +21,13 @@ const Plans = () => {
     const teacherProfile = useRecoilValue(profileAtom);
     const [selectedPlan, setSelectedPlan] = useState<null | number>(null);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const [openDialog, setOpenDialog] = useState(false);
+    const [subject, setSubject] = useState('');
+    const [planName, setPlanName] = useState('');
+    const [description, setDescription] = useState('');
+    const { getLessonPlan, gettingLessonPlan } = useGetLessonPlan();
+    const setPlan = useSetRecoilState(planAtom);
+
 
     const { getLessonPlans, getLessonPlansResponse } = useGetLessonPlans(teacherProfile.id);
 
@@ -29,25 +42,49 @@ const Plans = () => {
     const handleClick = (event: React.MouseEvent<HTMLElement>, id: number) => {
         setAnchorEl(event.currentTarget);
         setSelectedPlan(id);
-      };
-    
-      const handleClose = () => {
+    };
+
+    const handleClose = () => {
         setAnchorEl(null);
         setSelectedPlan(null);
-      };
-    
-      const handleShare = () => {
+    };
+
+    const handleShare = () => {
         if (selectedPlan !== null) {
-          // Implement your share logic here
-          alert(`Sharing plan with id: ${selectedPlan}`);
+            // Implement your share logic here
+            alert(`Sharing plan with id: ${selectedPlan}`);
         }
         handleClose();
+    };
+
+    const handleDialogOpen = () => {
+        setOpenDialog(true);
+    };
+
+    const handleDialogClose = () => {
+        setOpenDialog(false);
+    };
+
+    const handleCreate = () => {
+        // Simulate plan generation
+        getLessonPlan({
+          data: {
+            sessionId: moment().unix().toString(),
+            message: description,
+          },
+          onCompleted: (data) => {
+            setPlan(data);
+            navigate('/planner/create');
+            handleDialogClose();
+          },
+        });
       };
 
     return (
         <div>
+            {gettingLessonPlan && <CircularLoader />}
             <Box display="flex" justifyContent="flex-end" mb={2}>
-                <Button label="Create Assessment" onClick={() => navigate('/planner/create')}></Button>
+                <Button label="Create Plan" onClick={handleDialogOpen}></Button>
             </Box>
             <Grid2 container spacing={2}>
                 {getLessonPlansResponse?.lessonPlans.map((plan: any) => (
@@ -82,6 +119,35 @@ const Plans = () => {
                     </Grid2>
                 ))}
             </Grid2>
+
+            <Dialog open={openDialog} onClose={handleDialogClose}>
+                <DialogTitle>Create Plan</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Please enter the details for the new plan.
+                    </DialogContentText>
+                    <Select options={[
+                        { value: subjectId, label: 'Math' },
+                        { value: 'science', label: 'Science' },
+                        { value: 'english', label: 'English' },
+                    ]} label="Subject" value={subject}
+                         onChange={(newValue: any) => setSubject(newValue)} />
+                    <TextField
+                        margin="normal"
+                        label="Description"
+                        type="text"
+                        fullWidth
+                        multiline
+                        rows={4}
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button label="Cancel" onClick={handleDialogClose} />
+                    <Button label="Create" onClick={handleCreate} />
+                </DialogActions>
+            </Dialog>
         </div>
     );
 }

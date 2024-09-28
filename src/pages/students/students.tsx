@@ -44,7 +44,7 @@ const Students = () => {
             </div>
             <Grid2 container={true} gap={4} justifyContent="flex-start">
               {getStudentsList()?.map(({ email, gender, id,  name }: Student, index: number) => (
-                <Grid2>
+                <Grid2  style={{ width: 'calc(20% - 26px)' }}>
                   <StudentCard email={email} gender={gender} id={id} name={name} rollNumber={index+1} />
                 </Grid2>
               ))}
