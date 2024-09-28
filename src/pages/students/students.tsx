@@ -7,6 +7,7 @@ import { useGetStudents } from '../../api/students/students';
 import StudentCard from './components/student-card/studentCard';
 
 import styles from './students.module.scss';
+import Button from '../../components/button/button';
 
 interface Student {
   avgScore: number;
@@ -35,7 +36,10 @@ const Students = () => {
     <div className={styles.studentsContainer}>
       <div className={styles.studentsWrapper}>
         <Paper elevation={16} className={styles.studentsContent}>
-          <Paper className={styles.studentsHeader}><h1>Students</h1></Paper>
+          <Paper className={styles.studentsHeader}>
+            <h1 className={styles.studh1}>Students</h1>
+            <Button label="Invite Student"></Button>
+          </Paper>
           <Paper className={styles.studentsSection}>
             <div className={styles.studentSearchFilterWrapper}>
               <SearchInput onChange={(e) => setSearchString(e.target.value)} value={searchString}  />
