@@ -22,6 +22,7 @@ const FormInput: FC<TextFieldProps> = (props) => {
       }}
       style={{
         width: '100%',
+        ...(props.style || {})
       }}
     />
   )

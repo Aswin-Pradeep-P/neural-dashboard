@@ -121,6 +121,7 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({ editableQuestions, setE
                       multiline={true}
                       rows={4}
                       placeholder="Expected Answer"
+                      style={{ marginLeft: '34px' }}
                     />
                     
                       <Button
