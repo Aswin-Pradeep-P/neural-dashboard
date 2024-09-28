@@ -27,7 +27,8 @@ const DashboardCard: FC<DashboardCardProps> = ({ count, title }) => {
   }
   return (
     <div className={styles.cardWrapper}>
-      <div className={styles.content} style={{ backgroundImage: `url(${getIconByText(title)})` }}>
+      <div className={styles.content}>
+        <div className={styles.backgroundImg} style={{ backgroundImage: `url(${getIconByText(title)})` }} />
         <div className={styles.header}>
           <div className={styles.text}>{title}</div>
           <div className={styles.count}>{count}</div>

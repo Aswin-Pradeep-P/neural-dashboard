@@ -6,6 +6,25 @@
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 12px 20px -12px #b9b9b9;
+    cursor: pointer;
+
+    .backgroundImg {
+        background-size: cover;
+        background-position: center;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        object-fit: contain;
+        object-position: center;
+        transition: all 0.5s ease;
+    }
+
+    &:hover {
+        .backgroundImg {
+            transform: scale(1.25);
+        }
+    }
     
     .content {
         display: flex;
@@ -14,8 +33,6 @@
         width: 100%;
         flex-wrap: wrap;
         height: 280px;
-        background-size: cover;
-        background-position: center;
         position: relative;
 
         &::after {
@@ -26,6 +43,7 @@
             height: 100%;
             left: 0;
             top: 0;
+            z-index: 1;
         }
 
         &::before {
@@ -36,6 +54,7 @@
             background: linear-gradient(transparent, #ffffff);
             left: 0;
             bottom: 0;
+            z-index: 2;
         }
 
         img {
@@ -56,6 +75,7 @@
             border-top-right-radius: 10px;
             height: 60%;
             justify-content: flex-end;
+            z-index: 3;
 
             .text {
                 font-weight: 600;
