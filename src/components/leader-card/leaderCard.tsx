@@ -1,13 +1,12 @@
 import Paper from '@mui/material/Paper';
 import React, { FC } from 'react';
 import styles from './leaderCard.module.scss';
-import Avatar from '../avatar/avatar';
 
 export interface LeaderCardProps {
   id: string;
   name: string;
   rank: number;
-  percentage: string;
+  avgScore: number;
   gender: string;
 }
 
@@ -28,7 +27,8 @@ export const getColor = (id: string) => {
     return color;
   };
 
-const LeaderCard: FC<LeaderCardProps> = ({ name, rank, percentage, gender }) => {
+const LeaderCard: FC<LeaderCardProps> = ({ name, rank, avgScore: percentage, gender }) => {
+  console.log(gender);
 
   return (
     <Paper className={styles.leaderCard}>
@@ -36,11 +36,11 @@ const LeaderCard: FC<LeaderCardProps> = ({ name, rank, percentage, gender }) => 
         {rank}
       </div>
       <div className={styles.leaderAvatar}>
-        <img src={`./avatars/${gender}${Math.floor(Math.random() * 3) + 1}.svg`} />
+        <img src={`./avatars/${gender.toLowerCase()}${Math.floor(Math.random() * 3) + 1}.svg`} alt='' />
       </div>
       <div className={styles.nameWrapper}>
         <span>{name}</span>
-        <span>{percentage}</span>
+        <span>{percentage}%</span>
       </div>
 
     </Paper>

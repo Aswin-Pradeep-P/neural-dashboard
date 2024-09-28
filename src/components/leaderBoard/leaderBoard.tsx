@@ -1,41 +1,39 @@
 import React, { FC } from 'react';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 
-import LeaderCard, { LeaderCardProps } from '../leader-card/leaderCard';
+import LeaderCard from '../leader-card/leaderCard';
 import styles from './leaderBoard.module.scss';
 import Paper from '@mui/material/Paper';
-import Avatar from '../avatar/avatar';
+import { Student } from '../../pages/students/students';
 
 export interface LeaderBoardPrps {
-  leaderList: LeaderCardProps[];
+  leaderList: Student[];
 }
 
-const LeaderBoard: FC<LeaderBoardPrps> = ({ leaderList }) => {
-  const firstLeader = leaderList[0];
-  const remainingLeaders = leaderList.slice(1);
-  console.log(remainingLeaders);
+const LeaderBoard: FC<LeaderBoardPrps> = ({ leaderList = [] }) => {
+  const firstLeader = leaderList && leaderList[0];
+  const remainingLeaders = leaderList?.slice(1);
+
   return (
     <Paper className={styles.leaderBoardContainer}>
       <div className={styles.header}>
         <h1>Leaderboard </h1>
-        {/* <EmojiEventsIcon fontSize="large" /> */}
       </div>
       <Paper className={styles.topper}>
         <div className={styles.leaderAvatar}>
-          <img src={`./avatars/${firstLeader.gender}${Math.floor(Math.random() * 3) + 1}.svg`} />
+          <img src={`./avatars/${firstLeader?.gender.toLowerCase()}${Math.floor(Math.random() * 3) + 1}.svg`} alt='' />
         </div>
         {/* <div className={styles.rankHolder}>{firstLeader.rank}</div> */}
-        <div className={styles.rankHolder}>{firstLeader.name}</div>
-        <div className={styles.rankHolder}>{firstLeader.percentage}</div>
+        <div className={styles.rankHolder}>{firstLeader?.name}</div>
+        <div className={styles.rankHolder}>{`${firstLeader?.avgScore}%`}</div>
       </Paper>
       <div className={styles.leaderListWrapper}>
-        {remainingLeaders.map((leader) => (
+        {remainingLeaders?.map((leader, index) => (
           <LeaderCard
             key={leader.id}
             id={leader.id}
             name={leader.name}
-            percentage={leader.percentage}
-            rank={leader.rank}
+            avgScore={leader.avgScore}
+            rank={index + 2}
             gender={leader.gender}
           />
         ))}
