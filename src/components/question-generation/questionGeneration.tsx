@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, useEffect, useState } from 'react';
 import RadioButtonGroup from '../radio/radio';
 import MultilineInput from '../multiline-input/multilineInput';
 import Button from '../button/button';
 import { useCreateStudentAssessment } from '../../api/assessment/assesment';
 import { useNavigate } from 'react-router-dom';
+import CircularLoader from '../circular-loader/circularLoader';
 
 type QuestionType = 'MCQ' | 'True-False' | 'Short-Answer' | 'Essay' | 'Assertion-Reason' | 'Case-Study';
 
@@ -19,12 +20,13 @@ export interface Question {
 
 interface QuestionnaireProps {
   questions: Question[];
+  onSubmit: Function;
 }
 
-const Questionnaire: React.FC<QuestionnaireProps> = ({ questions }) => {
+const Questionnaire: React.FC<QuestionnaireProps> = ({ questions, onSubmit }) => {
   const [editableQuestions, setEditableQuestions] = useState<Question[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const { createStudentAssessment } = useCreateStudentAssessment();
+  const { createStudentAssessment, creatingStudentAssessment } = useCreateStudentAssessment();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -64,7 +66,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ questions }) => {
         })),
       },
       onCompleted: (data) => {
-        navigate('/assessments');
+        onSubmit(data);
       }
     })
   };
@@ -79,6 +81,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ questions }) => {
     <div>
       <div style={{ marginBottom: '20px' }}>
         <p>Question {currentQuestionIndex + 1}: {currentQuestion.text}</p>
+        {creatingStudentAssessment && <CircularLoader />}
         {currentQuestion.type === 'MCQ' || currentQuestion.type === 'True-False' || currentQuestion.type === 'Assertion-Reason' ? (
           <div>
             <RadioButtonGroup
