@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, Grid2 } from '@mui/material';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, Grid2, IconButton } from '@mui/material';
 import moment from 'moment';
 
 import Button from '../../components/button/button';
@@ -74,6 +75,7 @@ const Library: React.FC = () => {
               <TableCell>Name</TableCell>
               <TableCell>Uploaded By</TableCell>
               <TableCell>Uploaded At</TableCell>
+              <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -83,6 +85,9 @@ const Library: React.FC = () => {
                 <TableCell>{file.createdBy.name}</TableCell>
                 <TableCell>{file.createdBy.name}</TableCell>
                 <TableCell>{moment(file.uploadedAt).format('DD-MM-YYYY')}</TableCell>
+                <IconButton style={{marginLeft: '40px'}}>
+                  <MoreVertIcon />
+                </IconButton>
               </TableRow>
             ))}
           </TableBody>
