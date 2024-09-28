@@ -1,13 +1,12 @@
+@import '../../variables.scss';
+
 .tabsContainer {
     display: flex;
     align-items: center;
     position: relative;
-    border: 1px solid lightgray;
-    border-radius: 8px;
     padding: 4px;
     font-weight: 600;
     margin: 16px;
-    background-color: white;
 
     .tab {
         width: 90px;
@@ -18,12 +17,12 @@
     .selectedTab {
         padding: 8px 12px;
         border-radius: 8px;
-        color: darkGrey;
+        color: $primary;
         background-color: #fff;
         box-shadow: 0px 1px 3px 0px rgba(16, 24, 40, 0.1);
     }
 }
 
-.student{
+.student {
     margin: 16px;
 }

@@ -17,17 +17,13 @@ const StudentDashboard = () => {
     <div className={styles.studentDashboard}>
       <div className={styles.tabsContainer}>
         <div
-          className={`${styles.tab} ${
-            tab === 'Profile' ? styles.selectedTab : ''
-          }`}
+          className={`${styles.tab} ${tab === 'Profile' ? styles.selectedTab : ''}`}
           onClick={() => setTab('Profile')}
         >
           Profile
         </div>
         <div
-          className={`${styles.tab} ${
-            tab === 'Report' ? styles.selectedTab : ''
-          }`}
+          className={`${styles.tab} ${tab === 'Report' ? styles.selectedTab : ''}`}
           onClick={() => setTab('Report')}
         >
           Report
