@@ -58,7 +58,6 @@ const StudentProfile = () => {
     useEffect(() => {
         getStudent();
     }, []);
-    console.log(getStudentResponse);
 
     return (
         <div className={styles.studentProfileContainer}>
