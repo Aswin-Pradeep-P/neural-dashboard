@@ -15,9 +15,10 @@ interface RadioButtonGroupProps {
   options: RadioOption[];
   selectedValue: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  isDisabled?: boolean;
 }
 
-const RadioButtonGroup: React.FC<RadioButtonGroupProps> = ({ label, options, selectedValue, onChange }) => {
+const RadioButtonGroup: React.FC<RadioButtonGroupProps> = ({ label, options, selectedValue, onChange, isDisabled = false }) => {
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend">{label}</FormLabel>
@@ -28,6 +29,7 @@ const RadioButtonGroup: React.FC<RadioButtonGroupProps> = ({ label, options, sel
             value={option.value}
             control={<Radio />}
             label={option.label}
+            disabled={isDisabled}
           />
         ))}
       </RadioGroup>

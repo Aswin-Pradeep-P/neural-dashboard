@@ -8,6 +8,7 @@ interface MultilineInputProps {
   rows?: number;
   placeholder?: string;
   variant?: 'filled' | 'outlined' | 'standard';
+  disabled?: boolean;
 }
 
 const MultilineInput: React.FC<MultilineInputProps> = ({
@@ -17,6 +18,7 @@ const MultilineInput: React.FC<MultilineInputProps> = ({
   rows = 4,
   placeholder = '',
   variant = 'outlined',
+  disabled = false,
 }) => {
   return (
     <TextField
@@ -28,6 +30,7 @@ const MultilineInput: React.FC<MultilineInputProps> = ({
       placeholder={placeholder}
       variant={variant}
       fullWidth
+      disabled={disabled}
     />
   );
 };

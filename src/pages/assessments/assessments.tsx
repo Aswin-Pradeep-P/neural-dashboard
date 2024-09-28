@@ -73,9 +73,9 @@ const Assessments: React.FC = () => {
     setSelectedAssessment(null);
   };
 
-  const handleShare = () => {
+  const handleShare = (id: string) => {
     if(profile.type === 'student') {
-      navigate(`/assessments/${selectedAssessment}`);
+      navigate(`/assessments/${id}`);
     }
     // if (selectedAssessment !== null) {
     //   // Implement your share logic here
@@ -111,7 +111,9 @@ const Assessments: React.FC = () => {
   };
 
   const handleAssessmentAction = (id: number) => {
-
+    if(profile.type === 'student') {
+      navigate(`/assessments/${id}`);
+    }
   }
 
   const getAssessmentText = () => {
@@ -144,8 +146,8 @@ const Assessments: React.FC = () => {
                 <Typography color="textSecondary">Subject: {assessment.subject.name}</Typography>
                 <Typography color="textSecondary">{assessment.grade.name}</Typography>
                 <Typography color="textSecondary">Level: {capitalize(assessment.level)}</Typography>
-                <Typography color="textSecondary" style={{ marginBottom: '20px' }}>Created Date: {moment(assessment.createdAt).format('DD-MM-YYYY')}</Typography>
-                <Button containerClass={styles.shareBtn} label={getAssessmentText()} onClick={handleShare}></Button>
+                <Typography color="textSecondary">Created Date: {moment(assessment.createdAt).format('DD-MM-YYYY')}</Typography>
+                <Button containerClass={styles.shareBtn} label={getAssessmentText()} onClick={() => handleShare(assessment.id)}></Button>
               </CardContent>
               {/* <CardActions sx={{ justifyContent: 'flex-end' }} className={styles.cardActions}>
                 <IconButton onClick={(event) => handleClick(event, assessment.id)}>

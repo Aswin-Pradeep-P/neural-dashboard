@@ -3,13 +3,21 @@ import Questionnaire from '../../components/question-generation/questionGenerati
 import { useParams } from 'react-router-dom';
 import { useGetAssessments } from '../../api/assessment/assesment';
 import CircularLoader from '../../components/circular-loader/circularLoader';
-import { set } from 'lodash';
+import QuestionSummary from '../../components/question-summary/questionSummary';
 
 const TakeAssessment: FC = () => {
   const { id } = useParams();
   const { getAssessments, gettingAssessments } = useGetAssessments();
   const [questions, setQuestions] = useState<any[]>([]);
   const [name, setName] = useState<string>('');
+  const [isEdit, setIsEdit] = useState<boolean>(true);
+  const [score, setScore] = useState<number>(0);
+
+  const onSubmit = (data: any) => {
+    setIsEdit(false);
+    setQuestions(data.questions);
+    setScore(data.score);
+  }
 
   useEffect(() => {
     getAssessments({
@@ -30,7 +38,7 @@ const TakeAssessment: FC = () => {
     <div>
       {gettingAssessments && <CircularLoader />}
       <h1>Assessment - {name}</h1>
-      <Questionnaire questions={questions} />
+      {isEdit ? <Questionnaire questions={questions} onSubmit={onSubmit}  /> : <QuestionSummary questions={questions} score={score} />}
     </div>
   );
 };
