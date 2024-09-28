@@ -70,9 +70,9 @@ const Library: React.FC = () => {
         <Table>
           <TableHead>
             <TableRow>
+            <TableCell>Subject</TableCell>
               <TableCell>Name</TableCell>
-              {/* <TableCell>Subject</TableCell>
-              <TableCell>Uploaded By</TableCell> */}
+              <TableCell>Uploaded By</TableCell>
               <TableCell>Uploaded At</TableCell>
             </TableRow>
           </TableHead>
@@ -80,8 +80,8 @@ const Library: React.FC = () => {
             {getSubjectsResponse?.map((file: any, index: number) => (
               <TableRow key={index} style={index % 2 === 0 ? { backgroundColor: 'rgba(211, 238, 227, 0.3)' } : {}}>
                 <TableCell>{file.name}</TableCell>
-                <TableCell>{file.subject}</TableCell>
-                <TableCell>{file.uploadedBy}</TableCell>
+                <TableCell>{file.createdBy.name}</TableCell>
+                <TableCell>{file.createdBy.name}</TableCell>
                 <TableCell>{moment(file.uploadedAt).format('DD-MM-YYYY')}</TableCell>
               </TableRow>
             ))}
