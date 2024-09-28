@@ -20,18 +20,21 @@ import CircularLoader from '../../../../components/circular-loader/circularLoade
 import FormInput from '../../../../components/form-input/formInput';
 import Button from '../../../../components/button/button';
 import RadioButtonGroup from '../../../../components/radio/radio';
+import { useRecoilValue } from 'recoil';
+import { profileAtom } from '../../../../atoms/profile';
 
 const StudentReport = () => {
   const { studentId } = useParams();
   const [message, setMessage] = useState<string>('');
   const [selectedTone, setSelectedTone] = useState('happy');
+  const profile = useRecoilValue(profileAtom)
 
   const [ comment, setComment ] = useState('');
   const {
     getAssessmentsById,
     gettingAssessments,
     getAssessmentsByIdResponse = { assessments: [] },
-  } = useGetAssessmentsById(studentId as string);
+  } = useGetAssessmentsById((studentId || profile.id) as string);
 
   const {
     getReport,
@@ -80,7 +83,7 @@ const StudentReport = () => {
 
     getReport({
       data: {
-        user_id: studentId,
+        user_id: studentId  || profile.id,
       },
       onCompleted: (data) => {
         console.log('Report data', data);
