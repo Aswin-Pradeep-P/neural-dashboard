@@ -146,7 +146,7 @@ const Assessments: React.FC = () => {
                 <Typography color="textSecondary">Subject: {assessment.subject.name}</Typography>
                 <Typography color="textSecondary">{assessment.grade.name}</Typography>
                 <Typography color="textSecondary">Level: {capitalize(assessment.level)}</Typography>
-                <Typography color="textSecondary">Created Date: {moment(assessment.createdAt).format('DD-MM-YYYY')}</Typography>
+                <Typography color="textSecondary" style={{ marginBottom: '20px' }}>Created Date: {moment(assessment.createdAt).format('DD-MM-YYYY')}</Typography>
                 <Button containerClass={styles.shareBtn} label={getAssessmentText()} onClick={() => handleShare(assessment.id)}></Button>
               </CardContent>
               {/* <CardActions sx={{ justifyContent: 'flex-end' }} className={styles.cardActions}>

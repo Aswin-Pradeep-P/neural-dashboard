@@ -51,7 +51,8 @@
     gap: 16px;
     width: 100%;
     padding: 32px 24px;
-    border-radius: 16px;
+    border-radius: 16px !important;
+    box-shadow: 0 0 24px -24px #000 !important;
 
     .row {
         display: flex;
@@ -61,7 +62,7 @@
     .infoWrapper {
         display: flex;
         gap: 8px;
-        flex: 1;
+        // flex: 1;
     }
 }
 
@@ -72,9 +73,11 @@
 .achievementsWrapper {
     display: flex;
     flex-direction: column;
-    padding: 16px;
+    // padding: 16px;
+    box-shadow: none !important;
     gap: 8px;
     border-radius: 16px;
+    margin-top: 32px;
 
     img {
         width: 48px;

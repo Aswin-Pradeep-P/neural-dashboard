@@ -152,7 +152,7 @@ const StudentReport = () => {
           <div className={styles.skillHeader}>
             <h3>Skill Mastery and Development</h3>
             <h4>21st-Century Skills</h4>
-            <ul>
+            <ul style={{ paddingLeft: '20px', lineHeight: '1.6'  }}>
               {getReportResponse &&
                 Object.entries(
                   getReportResponse['Skill Mastery and Development'][
@@ -166,7 +166,7 @@ const StudentReport = () => {
                 ))}
             </ul>
             <h4>Skills Needing Improvement</h4>
-            <ul>
+            <ul style={{ paddingLeft: '20px', lineHeight: '1.6'  }}>
               <li>
                 <strong>Math:</strong> Rating:{' '}
                 {getReportResponse &&
@@ -198,7 +198,7 @@ const StudentReport = () => {
         <Paper>
           <div className={styles.skillHeader}>
             <h3>Strengths and Weaknesses</h3>
-            <ul>
+            <ul style={{ paddingLeft: '20px', lineHeight: '1.6' }}> 
               <li>
                 <strong>Areas for Improvement:</strong>{' '}
                 {getReportResponse &&
@@ -221,9 +221,7 @@ const StudentReport = () => {
           component={Paper}
           style={{
             marginTop: '20px',
-            borderRadius: '12px',
-            height: '200px',
-            overflowY: 'scroll',
+            borderRadius: '12px'
           }}
         >
           <Table>
@@ -264,7 +262,7 @@ const StudentReport = () => {
 
       <div className={styles.recommendations}>
         <h2>Personal Recommendations</h2>
-        <ul>
+        <ul style={{ paddingLeft: '20px', lineHeight: '1.6'  }}>
           {getReportResponse &&
             Object.entries(
               getReportResponse['Personalized Recommendations']
@@ -278,7 +276,7 @@ const StudentReport = () => {
       <div>
         <h2>Teachers Remark</h2>
         <div
-          style={{ flex: 1, padding: '10px', borderRight: '1px solid #ccc' }}
+          style={{ flex: 1, padding: '0', marginBottom: '10px', borderRight: '1px solid #ccc' }}
         >
           <FormInput
             type="text"

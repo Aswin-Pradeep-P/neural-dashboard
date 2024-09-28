@@ -71,7 +71,7 @@ const StudentProfile = () => {
                     <div style={{ display: 'flex', gap: '24px' }}>
                         <Paper className={styles.wrapper}>
                             <span className={styles.sectionTitle}>Personal Info</span>
-                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap' }}>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                                     <div className={styles.infoWrapper}>
                                         <span className={styles.label}>Name:</span>
@@ -94,18 +94,20 @@ const StudentProfile = () => {
                                         <span>{getStudentResponse?.gender}</span>
                                     </div>
                                 </div>
-                                <img style={{ width: '200px', borderRadius: '8px' }} src="../avatar.jpg" alt="avatar" />
+                                <img style={{ width: '150px', borderRadius: '8px' }} src="../avatar.jpg" alt="avatar" />
+                                <div style={{ width: '100%' }}>
+                                    <Paper className={styles.achievementsWrapper}>
+                                        <span className={styles.sectionTitle}>Achievements</span>
+                                        <Grid2 container={true} gap={1}>
+                                            {achievements.map(({ src, title }) => (
+                                                <Grid2 key={title}>
+                                                    <img src={src} alt={title} title={title} />
+                                                </Grid2>
+                                            ))}
+                                        </Grid2>
+                                    </Paper>
+                                </div>
                             </div>
-                        </Paper>
-                        <Paper className={styles.achievementsWrapper}>
-                            <span className={styles.sectionTitle}>Achievements</span>
-                            <Grid2 container={true} gap={1}>
-                                {achievements.map(({ src, title }) => (
-                                    <Grid2 key={title}>
-                                        <img src={src} alt={title} title={title} />
-                                    </Grid2>
-                                ))}
-                            </Grid2>
                         </Paper>
                         <Paper className={styles.wrapper}>
                             <span className={styles.sectionTitle}>Contact Info</span>
