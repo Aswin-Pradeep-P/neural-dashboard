@@ -17,7 +17,7 @@ const LeaderBoard: FC<LeaderBoardPrps> = ({ leaderList }) => {
   return (
     <Paper className={styles.leaderBoardContainer}>
       <div className={styles.header}>
-        <h1>LeaderBoard </h1>
+        <h1>Leaderboard </h1>
         {/* <EmojiEventsIcon fontSize="large" /> */}
       </div>
       <Paper className={styles.topper}>
