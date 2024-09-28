@@ -85,7 +85,7 @@ const Library: React.FC = () => {
                 <TableCell>{file.createdBy.name}</TableCell>
                 <TableCell>{file.createdBy.name}</TableCell>
                 <TableCell>{moment(file.uploadedAt).format('DD-MM-YYYY')}</TableCell>
-                <IconButton style={{marginLeft: '40px'}}>
+                <IconButton style={{marginLeft: '40px', marginTop: '10px'}}>
                   <MoreVertIcon />
                 </IconButton>
               </TableRow>
