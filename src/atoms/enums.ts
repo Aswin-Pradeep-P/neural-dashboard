@@ -3,4 +3,5 @@ export enum Atoms{
   ClassId= 'ClassId',
   Questions = 'Questions',
   Plan = 'Plan',
+  AssessmentData ='assessmentData'
 }
